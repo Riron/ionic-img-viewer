@@ -2,7 +2,7 @@
 
 Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
-![Plugin preview](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Plugin preview](https://raw.githubusercontent.com/riron/ionic-img-viewer/master/demo/img-viewer.gif)
 
 ## Demo
 
