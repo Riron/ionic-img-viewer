@@ -1,0 +1,67 @@
+image-viewer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+
+	ion-navbar {
+		&.toolbar .toolbar-background {
+			background-color: transparent;
+		}
+
+		.bar-button-default {
+			color: white;
+		}
+	}
+
+	.backdrop {
+		will-change: opacity;
+	}
+
+	.image-wrapper {
+		position: relative;
+		z-index: 10;
+
+		display: flex;
+		overflow: hidden;
+		flex-direction: column;
+
+		margin-top: 56px;
+
+		flex-grow: 1;
+		justify-content: center;
+	}
+
+	.image {
+		transform-origin: top left;
+
+		will-change: transform;
+	}
+
+	img {
+		display: block;
+
+		max-width: 100%;
+		max-height: 100%;
+		margin: 0 auto;
+
+		transition: transform .2s ease-in-out;
+	}
+
+	&.zoom {
+		.image-wrapper {
+			overflow: auto;
+		}
+
+		img {
+			transform: scale(2);
+		}
+	}
+}
+
