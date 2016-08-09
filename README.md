@@ -2,7 +2,7 @@
 
 Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
-![Plugin preview](https://raw.githubusercontent.com/riron/ionic-img-viewer/master/demo/img-viewer.gif)
+![Plugin preview](https://raw.githubusercontent.com/riron/ionic-img-viewer/master/demo/img-viewer2.gif)
 
 ## Demo
 
@@ -13,7 +13,7 @@ Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 Make sure you have Ionic and Angular installed.
 
 ```
-npm install TODO
+npm install --save ionic-img-viewer
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ npm install TODO
 Import the image viewer directive in your component, and add the `imageViewer` property to the pictures :
 
 ```typescript
-import {ImageViewerDirective} from '../image-viewer/image-viewer.directive';
+import { ImageViewerDirective } from 'ionic-img-viewer/ionic-img-viewer';
 
 
 @Component({
