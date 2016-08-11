@@ -5,12 +5,12 @@
   "main": "ionic-img-viewer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc"
+    "prepublish": "tsc && node-sass ./src/image-viewer.scss ./src/image-viewer.css"
   },
   "typings": "./ionic-img-viewer.d.ts",
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/Riron/ionic-img-viewer"
   },
   "keywords": [
     "ionic2",
@@ -33,6 +33,7 @@
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
+    "node-sass": "^3.8.0",
     "typescript": "^1.8.10",
     "typings": "^1.3.2"
   }

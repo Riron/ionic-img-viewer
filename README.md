@@ -1,12 +1,19 @@
-# Image viewer
+# Image viewer for Ionic2
 
 Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
 ![Plugin preview](https://raw.githubusercontent.com/riron/ionic-img-viewer/master/demo/img-viewer2.gif)
 
+## Features
+
+- Tap on the pic to see it fullscreen
+- Slide up/down to close the view
+- Tap on the navigation arrow to close the view
+- Double tap on the pic when open to zoom
+
 ## Demo
 
-[link to plunkr]
+[Demo on Plunkr](http://plnkr.co/edit/8f5MubWSohI3Q9DfKX9S?p=preview)
 
 ## Installation
 
@@ -18,10 +25,10 @@ npm install --save ionic-img-viewer
 
 ## Usage
 
-Import the image viewer directive in your component, and add the `imageViewer` property to the pictures :
+Import the image viewer directive in your component.
 
 ```typescript
-import { ImageViewerDirective } from 'ionic-img-viewer/ionic-img-viewer';
+import { ImageViewerDirective } from 'ionic-img-viewer';
 
 
 @Component({
@@ -33,6 +40,16 @@ class MyComponent {
 }
 ```
 
+And add the `imageViewer` property to the pictures.
+
+```html
+<img src="IMAGE_URL" imageViewer />
+```
+
 # Contributing
 
-Please read contributing guidelines here.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Thank you, [contributors]!
+
+[contributors]: https://github.com/Riron/ionic-img-viewer/graphs/contributors
