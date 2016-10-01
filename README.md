@@ -28,7 +28,7 @@ npm install --save ionic-img-viewer
 Import the image viewer directive in your component.
 
 ```typescript
-import { ImageViewerDirective } from 'ionic-img-viewer';
+import { ImageViewerDirective } from 'ionic-img-viewer/ionic-img-viewer';
 
 
 @Component({
