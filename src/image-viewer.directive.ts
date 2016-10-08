@@ -18,6 +18,6 @@ export class ImageViewerDirective {
 		let position = this._el.nativeElement.getBoundingClientRect();
 
 		let imageViewer = ImageViewer.create({image: this._el.nativeElement.src, position: position});
-		this._app.present(imageViewer);
+		this._app.present(imageViewer, {});
 	}
 }

@@ -1,6 +1,0 @@
-{
-  "globalDependencies": {
-    "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#9807d9b701f58be068cb07833d2b24235351d052",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#6abf99dda133ff859e16e3520b0b00b6b1239341"
-  }
-}

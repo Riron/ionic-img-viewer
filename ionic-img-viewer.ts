@@ -1,1 +1,1 @@
-export {ImageViewerDirective} from './src/image-viewer.directive';
+export { ImageViewerDirective } from './src/image-viewer.directive';

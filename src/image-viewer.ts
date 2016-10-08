@@ -6,11 +6,6 @@ export class ImageViewer extends ViewController {
 
 	constructor(opts: ImageViewerOptions = {}) {
 		super(ImageViewerComponent, opts);
-
-		// by default, it should not fire lifecycle events of other views,
-		// the current active view should not fire its lifecycle events
-		// because it's not conceptually leaving
-		this.fireOtherLifecycles = false;
 	}
 
 	getTransitionName(direction: string) {

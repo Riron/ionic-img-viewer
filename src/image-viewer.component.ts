@@ -2,6 +2,7 @@ import {NavController, NavParams, Transition} from 'ionic-angular';
 import {Ion} from 'ionic-angular/components/ion';
 import {PanGesture} from 'ionic-angular/gestures/drag-gesture';
 import {GestureController} from 'ionic-angular/gestures/gesture-controller';
+import {Config} from 'ionic-angular/config/config';
 import {ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone} from '@angular/core';
 
 import {ImageViewerGesture} from './image-viewer-gesture';
@@ -41,13 +42,14 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 
 	constructor(
 		public _gestureCtrl: GestureController,
+		public elementRef: ElementRef,
 		private _nav: NavController,
-		private _elementRef: ElementRef,
 		private _zone: NgZone,
 		private renderer: Renderer,
-		params: NavParams
+		params: NavParams,
+		config: Config
 	) {
-		super(_elementRef);
+		super(config, elementRef, renderer);
 
 		this.d = params.data;
 		this.created = Date.now();
