@@ -11,7 +11,6 @@ import {ImageViewerEnter, ImageViewerLeave} from './image-viewer-transitions';
 const DOUBLE_TAP_INTERVAL = 300;
 
 @Component({
-	moduleId: module.id,
 	selector: 'image-viewer',
 	template: `
 		<ion-header>
@@ -80,6 +79,3 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 		}
 	}
 }
-
-Transition.register('image-viewer-enter', ImageViewerEnter);
-Transition.register('image-viewer-leave', ImageViewerLeave);

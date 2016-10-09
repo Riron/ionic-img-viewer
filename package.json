@@ -24,7 +24,6 @@
     "ionic-angular": "^2.0.0-rc.0"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "latest",
     "typescript": "^2.0.3"
   }
 }
