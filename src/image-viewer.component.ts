@@ -25,8 +25,7 @@ const DOUBLE_TAP_INTERVAL = 300;
 				<img [src]="d.image" (click)="onImageClick()" />
 			</div>
 		</div>
-	`,
-	styles: ['$IONIC_STYLE_HACK']
+	`
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 	private d: {cssClass: string};
