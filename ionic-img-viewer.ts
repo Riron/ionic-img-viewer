@@ -1,1 +1,2 @@
-export {ImageViewerDirective} from './src/image-viewer.directive';
+export { IonicImageViewerModule } from './src/module';
+export { ImageViewerDirective } from './src/image-viewer.directive';

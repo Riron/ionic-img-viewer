@@ -1,13 +1,12 @@
-import {Transition, TransitionOptions, Animation, ViewController} from 'ionic-angular';
+import {Transition, Animation, ViewController} from 'ionic-angular';
 import {CSS} from 'ionic-angular/util/dom';
 
 export class ImageViewerEnter extends Transition {
-	constructor(enteringView: ViewController, leavingView: ViewController, opts: TransitionOptions) {
-		super(enteringView, leavingView, opts);
+	init() {
 
-		let ele = enteringView.pageRef().nativeElement;
+		let ele = this.enteringView.pageRef().nativeElement;
 
-		let fromPosition = enteringView.data.position;
+		let fromPosition = this.enteringView.data.position;
 		let toPosition = ele.querySelector('img').getBoundingClientRect();
 		let flipS = fromPosition.width / toPosition.width;
 		let flipY = fromPosition.top - toPosition.top;
@@ -27,23 +26,26 @@ export class ImageViewerEnter extends Transition {
 			.add(backdrop)
 			.add(image);
 
-		let enteringNavBar = new Animation(enteringView.navbarRef());
-		enteringNavBar.before.addClass('show-navbar');
+		const enteringPageEle: Element = this.enteringView.pageRef().nativeElement;
+		const enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
+		const enteringBackBtnEle = enteringPageEle.querySelector('.back-button');
+
+		let enteringNavBar = new Animation(enteringNavbarEle);
+		enteringNavBar.beforeAddClass('show-navbar');
 		this.add(enteringNavBar);
 
-		let enteringBackButton = new Animation(enteringView.backBtnRef());
+		let enteringBackButton = new Animation(enteringBackBtnEle);
 		this.add(enteringBackButton);
-		enteringBackButton.before.addClass('show-back-button');
+		enteringBackButton.beforeAddClass('show-back-button');
 	}
 }
 
 export class ImageViewerLeave extends Transition {
-	constructor(enteringView: ViewController, leavingView: ViewController, opts: TransitionOptions) {
-		super(enteringView, leavingView, opts);
+	init() {
 
-		let ele = leavingView.pageRef().nativeElement;
+		let ele = this.leavingView.pageRef().nativeElement;
 
-		let toPosition = leavingView.data.position;
+		let toPosition = this.leavingView.data.position;
 		let fromPosition = ele.querySelector('img').getBoundingClientRect();
 
 		let offsetY = 0;
