@@ -21,7 +21,7 @@
   "author": "Orion Charlier",
   "license": "MIT",
   "dependencies": {
-    "ionic-angular": "^2.0.0-rc.0"
+    "ionic-angular": "2.0.0-rc.0"
   },
   "devDependencies": {
     "typescript": "^2.0.3"
