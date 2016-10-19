@@ -1,6 +1,6 @@
 {
   "name": "ionic-img-viewer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Ionic 2 component providing a Twitter inspired experience to visualize pictures.",
   "main": "ionic-img-viewer.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "author": "Orion Charlier",
   "license": "MIT",
   "dependencies": {
-    "ionic-angular": "2.0.0-rc.0"
+    "ionic-angular": "^2.0.0-rc.0"
   },
   "devDependencies": {
     "typescript": "^2.0.3"
