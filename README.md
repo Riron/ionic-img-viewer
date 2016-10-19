@@ -23,7 +23,20 @@ Make sure you have Ionic and Angular installed.
 npm install --save ionic-img-viewer
 ```
 
-## Usage
+**For Ionic 2 RC.0 and later:**
+
+```typescript
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+
+@NgModule({
+  imports: [
+    IonicImageViewerModule
+  ]
+})
+export class AppModule {}
+```
+
+**For Ionic 2 beta version:**
 
 Import the image viewer directive in your component.
 
@@ -40,7 +53,9 @@ class MyComponent {
 }
 ```
 
-And add the `imageViewer` property to the pictures.
+## Usage
+
+Add the `imageViewer` property to the pictures.
 
 ```html
 <img src="IMAGE_URL" imageViewer />
