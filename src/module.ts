@@ -6,7 +6,7 @@ import { ImageViewerDirective } from './image-viewer.directive';
 import { ImageViewerComponent } from './image-viewer.component';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 
-function registerCustomTransitions(config: Config) {
+export function registerCustomTransitions(config: Config) {
 	return function() {
 		config.setTransition('image-viewer-enter', ImageViewerEnter);
 		config.setTransition('image-viewer-leave', ImageViewerLeave);
@@ -19,7 +19,10 @@ function registerCustomTransitions(config: Config) {
 		ImageViewerComponent,
 		ImageViewerDirective
 	],
-	exports: [ImageViewerDirective],
+	exports: [
+		ImageViewerDirective,
+		ImageViewerComponent
+	],
 	entryComponents: [
 		ImageViewerComponent
 	],

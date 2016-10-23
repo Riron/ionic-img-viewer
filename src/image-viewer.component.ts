@@ -28,7 +28,7 @@ const DOUBLE_TAP_INTERVAL = 300;
 	`
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
-	private d: {cssClass: string};
+	public d: any;
 	private created: number;
 
 	private computedHeight: number;

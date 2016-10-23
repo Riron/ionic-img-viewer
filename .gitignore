@@ -1,6 +1,7 @@
 # Node generated files
 node_modules
 npm-debug.log
+yarn.lock
 
 # OS generated files
 Thumbs.db
@@ -11,3 +12,7 @@ Thumbs.db
 *.map
 *.d.ts
 *.css
+
+# Ignored folders
+dist
+aot

@@ -1,13 +1,13 @@
 {
   "name": "ionic-img-viewer",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Ionic 2 component providing a Twitter inspired experience to visualize pictures.",
-  "main": "ionic-img-viewer.js",
+  "main": "./dist/ionic-img-viewer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc"
+    "prepublish": "node_modules/.bin/ngc -p tsconfig-aot.json && node ./copy-styles.js"
   },
-  "typings": "./ionic-img-viewer.d.ts",
+  "typings": "./dist/ionic-img-viewer.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Riron/ionic-img-viewer"
@@ -21,7 +21,18 @@
   "author": "Orion Charlier",
   "license": "MIT",
   "dependencies": {
-    "ionic-angular": "^2.0.0-rc.0"
+    "@angular/common": "2.0.0",
+    "@angular/compiler": "2.0.0",
+    "@angular/compiler-cli": "0.6.2",
+    "@angular/core": "2.0.0",
+    "@angular/forms": "2.0.0",
+    "@angular/http": "2.0.0",
+    "@angular/platform-browser": "2.0.0",
+    "@angular/platform-browser-dynamic": "2.0.0",
+    "@angular/platform-server": "2.0.0",
+    "ionic-angular": "^2.0.0-rc.1",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "0.6.21"
   },
   "devDependencies": {
     "typescript": "^2.0.3"
