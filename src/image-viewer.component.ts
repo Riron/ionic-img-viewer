@@ -22,7 +22,7 @@ const DOUBLE_TAP_INTERVAL = 300;
 
 		<div class="image-wrapper">
 			<div class="image">
-				<img [src]="d.image" (click)="onImageClick()" />
+				<img [src]="d.image" (click)="onImageClick()" (dblclick)="onImageDblClick()" />
 			</div>
 		</div>
 	`
@@ -70,11 +70,15 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 
 	onImageClick() {
 		if (this.dblClickInAction) {
-			this.isZoomed = !this.isZoomed;
-			this.renderer.setElementClass(this.getNativeElement(), 'zoom', this.isZoomed);
+			this.onImageDblClick();
 		} else {
 			this.dblClickInAction = true;
 			setTimeout(() => this.dblClickInAction = false, DOUBLE_TAP_INTERVAL);
 		}
+	}
+
+	onImageDblClick() {
+		this.isZoomed = !this.isZoomed;
+		this.renderer.setElementClass(this.getNativeElement(), 'zoom', this.isZoomed);
 	}
 }

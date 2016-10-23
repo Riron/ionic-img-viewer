@@ -4,6 +4,10 @@
 
 Support for AOT compilation
 
+### Bug Fixes
+
+**Events:** Support double click event for older Android devices
+
 # 1.1.1
 
 ### Features
