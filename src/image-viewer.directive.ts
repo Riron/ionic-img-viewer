@@ -1,7 +1,7 @@
-import {App} from 'ionic-angular';
-import {ElementRef, HostListener, Directive} from '@angular/core';
+import { App } from 'ionic-angular';
+import { ElementRef, HostListener, Directive } from '@angular/core';
 
-import {ImageViewer} from './image-viewer';
+import { ImageViewer } from './image-viewer';
 
 @Directive({
 	selector: '[imageViewer]'

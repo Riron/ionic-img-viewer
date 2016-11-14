@@ -19,13 +19,8 @@ export function registerCustomTransitions(config: Config) {
 		ImageViewerComponent,
 		ImageViewerDirective
 	],
-	exports: [
-		ImageViewerDirective,
-		ImageViewerComponent
-	],
-	entryComponents: [
-		ImageViewerComponent
-	],
+	exports: [ ImageViewerDirective ],
+	entryComponents: [ ImageViewerComponent ],
 	providers: [
 		{ provide: APP_INITIALIZER, useFactory: registerCustomTransitions, deps: [ Config ], multi: true }
 	]

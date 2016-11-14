@@ -1,7 +1,7 @@
-import {ImageViewerComponent} from './image-viewer.component';
-import {PanGesture} from 'ionic-angular/gestures/drag-gesture';
-import {CSS, nativeRaf, pointerCoord} from 'ionic-angular/util/dom';
-import {Animation} from 'ionic-angular';
+import { ImageViewerComponent } from './image-viewer.component';
+import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
+import { CSS, nativeRaf, pointerCoord } from 'ionic-angular/util/dom';
+import { Animation } from 'ionic-angular';
 
 const HAMMER_THRESHOLD = 10;
 const MAX_ATTACK_ANGLE = 45;

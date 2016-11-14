@@ -1,12 +1,12 @@
-import {NavController, NavParams, Transition} from 'ionic-angular';
-import {Ion} from 'ionic-angular/components/ion';
-import {PanGesture} from 'ionic-angular/gestures/drag-gesture';
-import {GestureController} from 'ionic-angular/gestures/gesture-controller';
-import {Config} from 'ionic-angular/config/config';
-import {ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone} from '@angular/core';
+import { NavController, NavParams, Transition } from 'ionic-angular';
+import { Ion } from 'ionic-angular/components/ion';
+import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
+import { GestureController } from 'ionic-angular/gestures/gesture-controller';
+import { Config } from 'ionic-angular/config/config';
+import { ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 
-import {ImageViewerGesture} from './image-viewer-gesture';
-import {ImageViewerEnter, ImageViewerLeave} from './image-viewer-transitions';
+import { ImageViewerGesture } from './image-viewer-gesture';
+import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 
 const DOUBLE_TAP_INTERVAL = 300;
 

@@ -1,5 +1,5 @@
-import {Transition, Animation, ViewController} from 'ionic-angular';
-import {CSS} from 'ionic-angular/util/dom';
+import { Transition, Animation, ViewController } from 'ionic-angular';
+import { CSS } from 'ionic-angular/util/dom';
 
 export class ImageViewerEnter extends Transition {
 	init() {

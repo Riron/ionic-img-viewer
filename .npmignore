@@ -9,5 +9,4 @@ Thumbs.db
 
 # Ignored files & folders
 *.ts
-!*.d.ts
 /src

@@ -1,6 +1,6 @@
-import {ViewController} from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 
-import {ImageViewerComponent} from './image-viewer.component';
+import { ImageViewerComponent } from './image-viewer.component';
 
 export class ImageViewer extends ViewController {
 
