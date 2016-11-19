@@ -19,7 +19,7 @@ export class ImageViewerGesture extends PanGesture {
 		super(component.getNativeElement(), {
 			maxAngle: MAX_ATTACK_ANGLE,
 			threshold: HAMMER_THRESHOLD,
-			gesture: component._gestureCtrl.create('image-viewer'),
+			gesture: component._gestureCtrl.createGesture({ name: 'image-viewer' }),
 			direction: 'y'
 		});
 
