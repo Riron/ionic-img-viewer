@@ -1,3 +1,16 @@
+# 1.1.5
+
+- Update for AOT support (related to PR #9)
+- Support for base64 encoded images
+
+# 1.1.4
+
+- Support for Ionic RC3
+
+# 1.1.3
+
+- Support for Ionic RC2
+
 # 1.1.2
 
 ### Features
