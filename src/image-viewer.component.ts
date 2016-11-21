@@ -4,6 +4,7 @@ import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
 import { GestureController } from 'ionic-angular/gestures/gesture-controller';
 import { Config } from 'ionic-angular/config/config';
 import { ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { ImageViewerGesture } from './image-viewer-gesture';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
@@ -22,17 +23,13 @@ const DOUBLE_TAP_INTERVAL = 300;
 
 		<div class="image-wrapper">
 			<div class="image">
-				<img [src]="d.image" (click)="onImageClick()" (dblclick)="onImageDblClick()" />
+				<img [src]="imageUrl" (click)="onImageClick()" (dblclick)="onImageDblClick()" />
 			</div>
 		</div>
 	`
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
-	public d: any;
-	private created: number;
-
-	private computedHeight: number;
-	private computedWidth: number;
+	public imageUrl: SafeUrl;
 
 	private dragGesture: PanGesture;
 	private dblClickInAction: boolean;
@@ -44,19 +41,14 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 		private _nav: NavController,
 		private _zone: NgZone,
 		private renderer: Renderer,
-		params: NavParams,
-		config: Config
+		_navParams: NavParams,
+		_config: Config,
+		_sanitizer: DomSanitizer
 	) {
-		super(config, elementRef, renderer);
+		super(_config, elementRef, renderer);
 
-		this.d = params.data;
-		this.created = Date.now();
-
-		if (this.d.cssClass) {
-			this.d.cssClass.split(' ').forEach(cssClass => {
-				renderer.setElementClass(this.getNativeElement(), cssClass, true);
-			});
-		}
+		const url = _navParams.get('image');
+		this.imageUrl = _sanitizer.bypassSecurityTrustUrl(url);
 	}
 
 	ngOnInit() {
