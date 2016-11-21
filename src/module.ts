@@ -4,14 +4,7 @@ import { Config } from 'ionic-angular/config/config';
 
 import { ImageViewerDirective } from './image-viewer.directive';
 import { ImageViewerComponent } from './image-viewer.component';
-import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
-
-export function registerCustomTransitions(config: Config) {
-	return function() {
-		config.setTransition('image-viewer-enter', ImageViewerEnter);
-		config.setTransition('image-viewer-leave', ImageViewerLeave);
-	};
-}
+import { registerCustomTransitions } from './image-viewer-transitions';
 
 @NgModule({
 	imports: [IonicModule],

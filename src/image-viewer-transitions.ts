@@ -1,5 +1,13 @@
+import { Config } from 'ionic-angular/umd';
 import { Transition, Animation, ViewController } from 'ionic-angular';
 import { CSS } from 'ionic-angular/util/dom';
+
+export function registerCustomTransitions(config: Config) {
+	return function() {
+		config.setTransition('image-viewer-enter', ImageViewerEnter);
+		config.setTransition('image-viewer-leave', ImageViewerLeave);
+	};
+}
 
 export class ImageViewerEnter extends Transition {
 	init() {

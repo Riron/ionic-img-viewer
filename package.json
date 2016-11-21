@@ -6,7 +6,7 @@
   "typings": "./dist/ionic-img-viewer.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "node_modules/.bin/ngc && node ./copy-styles.js"
+    "prepublish": "node_modules/.bin/ngc && copyfiles ./src/*.scss ./dist/"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,22 @@
   "author": "Orion Charlier",
   "license": "MIT",
   "dependencies": {
-    "ionic-angular": "^2.0.0-rc.3"
+    "@angular/common": "2.1.1",
+    "@angular/compiler": "2.1.1",
+    "@angular/compiler-cli": "2.1.1",
+    "@angular/core": "2.1.1",
+    "@angular/forms": "2.1.1",
+    "@angular/http": "2.1.1",
+    "@angular/platform-browser": "2.1.1",
+    "@angular/platform-browser-dynamic": "2.1.1",
+    "@angular/platform-server": "2.1.1",
+    "@ionic/storage": "1.1.6",
+    "ionic-angular": "2.0.0-rc.3",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "0.6.26"
   },
   "devDependencies": {
-    "typescript": "^2.0.3"
+    "typescript": "2.0.6",
+    "copyfiles": "1.0.0"
   }
 }
