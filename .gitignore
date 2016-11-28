@@ -6,6 +6,7 @@ yarn.lock
 # OS generated files
 Thumbs.db
 .DS_Store
+.vscode
 
 # Ignored files
 *.js
