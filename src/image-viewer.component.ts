@@ -1,3 +1,4 @@
+import { ImageViewerSliderGesture } from './image-viewer-slider-gesture';
 import { NavController, NavParams, Transition } from 'ionic-angular';
 import { Ion } from 'ionic-angular/components/ion';
 import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
@@ -23,15 +24,18 @@ const DOUBLE_TAP_INTERVAL = 300;
 
 		<div class="image-wrapper">
 			<div class="image">
-				<img [src]="imageUrl" (click)="onImageClick()" (dblclick)="onImageDblClick()" tappable />
+				<template ngFor let-imageUrl [ngForOf]="imageUrls">
+					<img [src]="imageUrl" (click)="onImageClick()" (dblclick)="onImageDblClick()" tappable />
+				</template>
 			</div>
 		</div>
 	`
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
-	public imageUrl: SafeUrl;
+	public imageUrls: Array<SafeUrl>;
 
 	private dragGesture: PanGesture;
+	private nextSlideGesture: PanGesture;
 	private dblClickInAction: boolean;
 	public isZoomed: boolean;
 
@@ -47,17 +51,21 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 	) {
 		super(_config, elementRef, renderer);
 
-		const url = _navParams.get('image');
-		this.imageUrl = _sanitizer.bypassSecurityTrustUrl(url);
+		const urls = _navParams.get('images');
+		this.imageUrls = urls.map(url => _sanitizer.bypassSecurityTrustUrl(url));
 	}
 
 	ngOnInit() {
 		let gestureCallBack = () => this._nav.pop();
-		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerGesture(this, gestureCallBack));
+		this._zone.runOutsideAngular(() => {
+			this.dragGesture = new ImageViewerGesture(this, gestureCallBack);
+			this.nextSlideGesture = new ImageViewerSliderGesture(this, null);
+		});
 	}
 
 	ngOnDestroy() {
 		this.dragGesture && this.dragGesture.destroy();
+		this.nextSlideGesture && this.nextSlideGesture.destroy();
 	}
 
 	onImageClick() {

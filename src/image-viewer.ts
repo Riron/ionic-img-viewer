@@ -22,5 +22,6 @@ export class ImageViewer extends ViewController {
 export interface ImageViewerOptions {
 	enableBackdropDismiss?: boolean;
 	image?: string;
+	images?: string[];
 	position?: ClientRect;
 }
