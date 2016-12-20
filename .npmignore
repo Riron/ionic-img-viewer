@@ -6,9 +6,11 @@ yarn.lock
 # OS generated files
 Thumbs.db
 .DS_Store
+.vscode
 
 # Ignored files & folders
 *.ts
 !*.d.ts
 /src
-/demo
+demo
+config

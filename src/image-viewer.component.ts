@@ -1,4 +1,4 @@
-import { NavController, NavParams, Transition } from 'ionic-angular';
+import { DomController, NavController, NavParams, Transition } from 'ionic-angular';
 import { Ion } from 'ionic-angular/components/ion';
 import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
 import { GestureController } from 'ionic-angular/gestures/gesture-controller';
@@ -41,6 +41,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 		private _nav: NavController,
 		private _zone: NgZone,
 		private renderer: Renderer,
+		private domCtrl: DomController,
 		_navParams: NavParams,
 		_config: Config,
 		_sanitizer: DomSanitizer
@@ -53,7 +54,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		let gestureCallBack = () => this._nav.pop();
-		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerGesture(this, gestureCallBack));
+		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerGesture(this, this.domCtrl, gestureCallBack));
 	}
 
 	ngOnDestroy() {

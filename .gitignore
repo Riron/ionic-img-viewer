@@ -13,6 +13,7 @@ Thumbs.db
 *.map
 *.d.ts
 *.css
+*.tgz
 
 # Ignored folders
 dist

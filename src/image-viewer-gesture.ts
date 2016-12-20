@@ -1,7 +1,7 @@
 import { ImageViewerComponent } from './image-viewer.component';
 import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
 import { CSS, nativeRaf, pointerCoord } from 'ionic-angular/util/dom';
-import { Animation } from 'ionic-angular';
+import { Animation, DomController } from 'ionic-angular';
 
 const HAMMER_THRESHOLD = 10;
 const MAX_ATTACK_ANGLE = 45;
@@ -15,12 +15,13 @@ export class ImageViewerGesture extends PanGesture {
 	private imageContainer: HTMLElement;
 	private backdrop: HTMLElement;
 
-	constructor(private component: ImageViewerComponent, private cb: Function) {
+	constructor(private component: ImageViewerComponent, domCtrl: DomController, private cb: Function) {
 		super(component.getNativeElement(), {
 			maxAngle: MAX_ATTACK_ANGLE,
 			threshold: HAMMER_THRESHOLD,
 			gesture: component._gestureCtrl.createGesture({ name: 'image-viewer' }),
-			direction: 'y'
+			direction: 'y',
+			domController: domCtrl
 		});
 
 		this.translationY = 0;
