@@ -1,6 +1,7 @@
 import { ImageViewerComponent } from './image-viewer.component';
 import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
-import { CSS, nativeRaf, pointerCoord } from 'ionic-angular/util/dom';
+import { pointerCoord } from 'ionic-angular/util/dom';
+import { Platform } from 'ionic-angular/platform/platform';
 import { Animation, DomController } from 'ionic-angular';
 
 const HAMMER_THRESHOLD = 10;
@@ -15,8 +16,8 @@ export class ImageViewerGesture extends PanGesture {
 	private imageContainer: HTMLElement;
 	private backdrop: HTMLElement;
 
-	constructor(private component: ImageViewerComponent, domCtrl: DomController, private cb: Function) {
-		super(component.getNativeElement(), {
+	constructor(platform: Platform, private component: ImageViewerComponent, domCtrl: DomController, private cb: Function) {
+		super(platform, component.getNativeElement(), {
 			maxAngle: MAX_ATTACK_ANGLE,
 			threshold: HAMMER_THRESHOLD,
 			gesture: component._gestureCtrl.createGesture({ name: 'image-viewer' }),
@@ -46,8 +47,8 @@ export class ImageViewerGesture extends PanGesture {
 		this.translationY = coord.y - this.startY;
 		this.opacity = Math.max(1 - Math.abs(this.translationY) / (10 * DRAG_THRESHOLD), .5);
 
-		nativeRaf(() => {
-			this.imageContainer.style[<any>CSS.transform] = `translateY(${this.translationY}px)`;
+		this.plt.raf(() => {
+			this.imageContainer.style[this.plt.Css.transform] = `translateY(${this.translationY}px)`;
 			this.backdrop.style['opacity'] = this.opacity.toString();
 		});
 
@@ -59,13 +60,13 @@ export class ImageViewerGesture extends PanGesture {
 		if (Math.abs(this.translationY) > DRAG_THRESHOLD) {
 			this.cb();
 		} else {
-			let imageContainerAnimation = new Animation(this.imageContainer);
-			let backdropAnimation = new Animation(this.backdrop);
+			let imageContainerAnimation = new Animation(this.plt, this.imageContainer);
+			let backdropAnimation = new Animation(this.plt, this.backdrop);
 
 			backdropAnimation.fromTo('opacity', this.opacity, '1');
 			imageContainerAnimation.fromTo('translateY', `${this.translationY}px`, '0px');
 
-			new Animation()
+			new Animation(this.plt)
 				.easing('ease-in')
 				.duration(150)
 				.add(backdropAnimation)
