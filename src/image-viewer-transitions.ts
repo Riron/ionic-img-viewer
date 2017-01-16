@@ -1,6 +1,5 @@
 import { Config } from 'ionic-angular/umd';
 import { Transition, Animation, ViewController } from 'ionic-angular';
-import { CSS } from 'ionic-angular/util/dom';
 
 export function registerCustomTransitions(config: Config) {
 	return function() {
@@ -20,8 +19,8 @@ export class ImageViewerEnter extends Transition {
 		let flipY = fromPosition.top - toPosition.top;
 		let flipX = fromPosition.left - toPosition.left;
 
-		let backdrop = new Animation(ele.querySelector('ion-backdrop'));
-		let image = new Animation(ele.querySelector('.image'));
+		let backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+		let image = new Animation(this.plt, ele.querySelector('.image'));
 
 		image.fromTo('translateY', `${flipY}px`, '0px')
 			.fromTo('translateX', `${flipX}px`, '0px')
@@ -38,11 +37,11 @@ export class ImageViewerEnter extends Transition {
 		const enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
 		const enteringBackBtnEle = enteringPageEle.querySelector('.back-button');
 
-		let enteringNavBar = new Animation(enteringNavbarEle);
+		let enteringNavBar = new Animation(this.plt, enteringNavbarEle);
 		enteringNavBar.beforeAddClass('show-navbar');
 		this.add(enteringNavBar);
 
-		let enteringBackButton = new Animation(enteringBackBtnEle);
+		let enteringBackButton = new Animation(this.plt, enteringBackBtnEle);
 		this.add(enteringBackButton);
 		enteringBackButton.beforeAddClass('show-back-button');
 	}
@@ -57,7 +56,7 @@ export class ImageViewerLeave extends Transition {
 		let fromPosition = ele.querySelector('img').getBoundingClientRect();
 
 		let offsetY = 0;
-		let imageYOffset = ele.querySelector('.image').style[CSS.transform];
+		let imageYOffset = ele.querySelector('.image').style[this.plt.Css.transform];
 		if (imageYOffset) {
 			let regexResult = imageYOffset.match(/translateY\((-?\d+)px\)/);
 			offsetY = regexResult ? parseFloat(regexResult[1]) : offsetY;
@@ -69,8 +68,8 @@ export class ImageViewerLeave extends Transition {
 
 		let backdropOpacity = ele.querySelector('ion-backdrop').style['opacity'];
 
-		let backdrop = new Animation(ele.querySelector('ion-backdrop'));
-		let image = new Animation(ele.querySelector('.image'));
+		let backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+		let image = new Animation(this.plt, ele.querySelector('.image'));
 
 		image.fromTo('translateY', `${offsetY}px`, `${flipY}px`)
 			.fromTo('translateX', `0px`, `${flipX}px`)
