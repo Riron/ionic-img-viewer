@@ -24,7 +24,7 @@ const DOUBLE_TAP_INTERVAL = 300;
 
 		<div class="image-wrapper">
 			<div class="image">
-				<img [src]="imageUrl" (click)="onImageClick()" (dblclick)="onImageDblClick()" tappable />
+				<img [src]="imageUrl" (click)="onImageClick()" tappable />
 			</div>
 		</div>
 	`
