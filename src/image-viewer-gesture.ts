@@ -38,8 +38,9 @@ export class ImageViewerGesture extends PanGesture {
 		return true;
 	}
 
-	canStart(): boolean {
-		return !this.component.isZoomed;
+	canStart(ev: any): boolean {
+		// If we are zoomed in || pinching (2 simultaneous touches at least)
+		return !this.component.isZoomed && ev.touches.length < 2;
 	}
 
 	onDragMove(ev: any): boolean {

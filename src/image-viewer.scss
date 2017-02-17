@@ -46,6 +46,7 @@ image-viewer.ion-page {
 
     .image {
         will-change: transform;
+        transform-origin: 0 0;
     }
 
     img {

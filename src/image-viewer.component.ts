@@ -1,16 +1,23 @@
-import { DomController, NavController, NavParams, Transition } from 'ionic-angular';
-import { Ion } from 'ionic-angular/components/ion';
-import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
-import { GestureController } from 'ionic-angular/gestures/gesture-controller';
-import { Config } from 'ionic-angular/config/config';
-import { Platform } from 'ionic-angular/platform/platform';
-import { ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import {
+	DomController,
+	NavController,
+	NavParams,
+	Transition,
+	Ion,
+	PanGesture,
+	Gesture,
+	GestureController,
+	Config,
+	Platform
+} from 'ionic-angular';
+import { ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { ImageViewerGesture } from './image-viewer-gesture';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 
 const DOUBLE_TAP_INTERVAL = 300;
+const MAX_SCALE = 2;
 
 @Component({
 	selector: 'image-viewer',
@@ -23,7 +30,7 @@ const DOUBLE_TAP_INTERVAL = 300;
 		<ion-backdrop></ion-backdrop>
 
 		<div class="image-wrapper">
-			<div class="image">
+			<div class="image" #imageContainer>
 				<img [src]="imageUrl" (click)="onImageClick()" tappable />
 			</div>
 		</div>
@@ -33,6 +40,10 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 	public imageUrl: SafeUrl;
 
 	private dragGesture: PanGesture;
+
+	@ViewChild('imageContainer') imageContainer;
+	private pinchGesture: Gesture;
+	private currentScale: number = 1;
 	private dblClickInAction: boolean;
 	public isZoomed: boolean;
 
@@ -59,8 +70,18 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerGesture(this.platform, this, this.domCtrl, gestureCallBack));
 	}
 
+	ngAfterViewInit() {
+		// imageContainer is set after the view has been initialized
+		this._zone.runOutsideAngular(() => {
+			this.pinchGesture = new Gesture(this.imageContainer.nativeElement);
+			this.pinchGesture.listen();
+			this.pinchGesture.on('pinch', this.onPinch);
+		});
+	}
+
 	ngOnDestroy() {
 		this.dragGesture && this.dragGesture.destroy();
+		this.pinchGesture && this.pinchGesture.destroy();
 	}
 
 	onImageClick() {
@@ -73,7 +94,16 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 	}
 
 	onImageDblClick() {
+		// Clear eventual transforms caused by a previous pinch
+		this.imageContainer.nativeElement.style.transform = '';
+
 		this.isZoomed = !this.isZoomed;
-		this.renderer.setElementClass(this.getNativeElement(), 'zoom', this.isZoomed);
+		this.renderer.setElementClass(this.imageContainer.nativeElement, 'zoom', this.isZoomed);
+	}
+
+	onPinch(event) {
+		console.log(event, this.currentScale)
+		this.currentScale = Math.max(MAX_SCALE, this.currentScale * event.scale);
+		this.imageContainer.nativeElement.style.transform = `scale(${this.currentScale})`;
 	}
 }
