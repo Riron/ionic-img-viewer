@@ -10,7 +10,7 @@ import {
 	Config,
 	Platform
 } from 'ionic-angular';
-import { ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone, ViewChild } from '@angular/core';
+import { ElementRef, Renderer, Component, OnInit, OnDestroy, AfterViewInit, NgZone, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { ImageViewerGesture } from './image-viewer-gesture';
@@ -36,7 +36,7 @@ const MAX_SCALE = 2;
 		</div>
 	`
 })
-export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
+export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, AfterViewInit {
 	public imageUrl: SafeUrl;
 
 	private dragGesture: PanGesture;
@@ -75,7 +75,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 		this._zone.runOutsideAngular(() => {
 			this.pinchGesture = new Gesture(this.imageContainer.nativeElement);
 			this.pinchGesture.listen();
-			this.pinchGesture.on('pinch', this.onPinch);
+			this.pinchGesture.on('pinch', (e) => this.onPinch(e));
 		});
 	}
 
