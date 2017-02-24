@@ -32,19 +32,30 @@ export class ImageViewerGesture extends PanGesture {
 		this.listen();
 	}
 
+	// As we handle both pinch and drag, we have to make sure we don't drag when we are trying to pinch
+	isPinching(ev) {
+		return ev.touches && ev.touches.length > 1;
+	}
+
 	onDragStart(ev: any): boolean {
+		if (this.isPinching(ev)) {
+			this.abort(ev);
+		}
+
 		let coord = pointerCoord(ev);
 		this.startY = coord.y;
 		return true;
 	}
 
 	canStart(ev: any): boolean {
-		const isPinching = ev.touches && ev.touches.length > 1;
-
-		return !this.component.isZoomed && !isPinching;
+		return !this.component.isZoomed && !this.isPinching(ev);
 	}
 
 	onDragMove(ev: any): boolean {
+		if (this.isPinching(ev)) {
+			this.abort(ev);
+		}
+
 		let coord = pointerCoord(ev);
 		this.translationY = coord.y - this.startY;
 		this.opacity = Math.max(1 - Math.abs(this.translationY) / (10 * DRAG_THRESHOLD), .5);
