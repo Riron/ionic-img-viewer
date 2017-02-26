@@ -1,3 +1,4 @@
+import { Renderer } from '@angular/core';
 import { ImageViewerComponent } from './image-viewer.component';
 import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
 import { pointerCoord } from 'ionic-angular/util/dom';
@@ -8,7 +9,7 @@ const HAMMER_THRESHOLD = 10;
 const MAX_ATTACK_ANGLE = 45;
 const DRAG_THRESHOLD = 70;
 
-export class ImageViewerGesture extends PanGesture {
+export class ImageViewerTransitionGesture extends PanGesture {
 
 	private translationY: number;
 	private opacity: number;
@@ -16,7 +17,7 @@ export class ImageViewerGesture extends PanGesture {
 	private imageContainer: HTMLElement;
 	private backdrop: HTMLElement;
 
-	constructor(platform: Platform, private component: ImageViewerComponent, domCtrl: DomController, private cb: Function) {
+	constructor(platform: Platform, private component: ImageViewerComponent, domCtrl: DomController, private renderer: Renderer, private cb: Function) {
 		super(platform, component.getNativeElement(), {
 			maxAngle: MAX_ATTACK_ANGLE,
 			threshold: HAMMER_THRESHOLD,
@@ -61,8 +62,8 @@ export class ImageViewerGesture extends PanGesture {
 		this.opacity = Math.max(1 - Math.abs(this.translationY) / (10 * DRAG_THRESHOLD), .5);
 
 		this.plt.raf(() => {
-			this.imageContainer.style[this.plt.Css.transform] = `translateY(${this.translationY}px)`;
-			this.backdrop.style['opacity'] = this.opacity.toString();
+			this.renderer.setElementStyle(this.imageContainer, this.plt.Css.transform, `translateY(${this.translationY}px)`);
+			this.renderer.setElementStyle(this.backdrop, 'opacity', this.opacity.toString());
 		});
 
 		return true;

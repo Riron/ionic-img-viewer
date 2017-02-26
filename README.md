@@ -36,23 +36,6 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 export class AppModule {}
 ```
 
-**For Ionic 2 beta version:**
-
-Import the image viewer directive in your component.
-
-```typescript
-import { ImageViewerDirective } from 'ionic-img-viewer';
-
-
-@Component({
-  template: `<img [src]="url" imageViewer />`,
-  directives: [ImageViewerDirective]
-})
-class MyComponent {
-
-}
-```
-
 ## Usage
 
 Add the `imageViewer` property to the pictures.
@@ -60,6 +43,15 @@ Add the `imageViewer` property to the pictures.
 ```html
 <img src="IMAGE_URL" imageViewer />
 ```
+
+If you use thumbnails and want to display bigger images, you can use it like so :
+
+```html
+<img src="IMAGE_URL" imageViewer="OTHER_IMAGE_URL" />
+```
+
+However, if `OTHER_IMAGE_URL` is not preloaded, the animation might suffer. Indeed there will be no ready image to make the transition (it might blink and you'll not get the smooth transition effet while opening).
+So try to cache your image before the call if you use it that way.
 
 # Contributing
 

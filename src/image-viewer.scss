@@ -46,11 +46,6 @@ image-viewer.ion-page {
 
     .image {
         will-change: transform;
-        transform-origin: 0 0;
-
-        &.zoom {
-            transform: scale(2);
-        }
     }
 
     img {
@@ -59,8 +54,5 @@ image-viewer.ion-page {
         max-width: 100%;
         max-height: 100%;
         margin: 0 auto;
-
-        transition: transform .2s ease-in-out;
-        transform-origin: 0 0;
     }
 }
