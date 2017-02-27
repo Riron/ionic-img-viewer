@@ -4,7 +4,7 @@ import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from 'ionic-angular/gestures
 
 import { ImageViewerComponent } from './image-viewer.component';
 
-const MAX_SCALE = 2;
+const MAX_SCALE = 3;
 
 export class ImageViewerZoomGesture extends Gesture {
 	private adjustScale = 1;
@@ -15,6 +15,9 @@ export class ImageViewerZoomGesture extends Gesture {
 	private currentDeltaX = 0;
 	private currentDeltaY = 0;
 
+	private allowedXMargin = 0;
+	private allowedYMargin = 0;
+
 	constructor(private component: ImageViewerComponent, element: any,  private platform: Platform, private renderer: Renderer) {
 		super(element.nativeElement);
 
@@ -24,6 +27,7 @@ export class ImageViewerZoomGesture extends Gesture {
 		this.listen();
 		this.on('pinch', (e) => this.onPinch(e));
 		this.on('pinchend', (e) => this.onPinchEnd(e));
+		this.on('panstart', (e) => this.onPanStart(e));
 		this.on('pan', (e) => this.onPan(e));
 		this.on('panend', (e) => this.onPanEnd(e));
 		this.on('doubletap', (e) => this.onDoubleTap(e));
@@ -62,42 +66,39 @@ export class ImageViewerZoomGesture extends Gesture {
 		this.adjustDeltaY = this.currentDeltaY;
 	}
 
+	onPanStart(event) {
+		if (!this.component.isZoomed) {
+			return;
+		}
+
+		const originalImageWidth = this.element.offsetWidth;
+		const originalImageHeight = this.element.offsetHeight;
+
+		this.allowedXMargin = ((originalImageWidth * this.currentScale) - originalImageWidth) / 4;
+		this.allowedYMargin = ((originalImageHeight * this.currentScale) - originalImageHeight) / 4;
+	}
+
 	onPan(event) {
 		if (!this.component.isZoomed) {
 			return;
 		}
 
-		this.currentDeltaX = Math.floor(this.adjustDeltaX + event.deltaX);
-		this.currentDeltaY = Math.floor(this.adjustDeltaY + event.deltaY);
+		this.currentDeltaX = this.boundAdjustement(Math.floor(this.adjustDeltaX + event.deltaX), this.allowedXMargin);
+		this.currentDeltaY = this.boundAdjustement(Math.floor(this.adjustDeltaY + event.deltaY), this.allowedYMargin);
 
 		this.setImageContainerTransform();
+	}
+
+	boundAdjustement(adjustement, bound) {
+		if (adjustement > bound || adjustement < -bound) {
+			return Math.min(bound, Math.max(adjustement, -bound));
+		}
+		return adjustement;
 	}
 
 	onPanEnd(event) {
 		if (!this.component.isZoomed) {
 			return;
-		}
-
-		const imageWidth = this.element.offsetWidth;
-		const imageHeight = this.element.offsetHeight;
-
-		const isOverOnX = (this.currentDeltaX > imageWidth) || (this.currentDeltaX < -imageWidth);
-		const isOverOnY = (this.currentDeltaY < -imageHeight) || (this.currentDeltaY > imageHeight);
-
-		if (isOverOnX || isOverOnY) {
-			const correctedX = Math.min(imageWidth, Math.max(this.currentDeltaX, -imageWidth));
-			const correctedY = Math.min(imageHeight, Math.min(this.currentDeltaX, -imageHeight));
-
-			new Animation(this.platform, this.element)
-				.fromTo('translateX', `${this.currentDeltaX}px`, `${correctedX}px`)
-				.fromTo('translateY', `${this.currentDeltaY}px`, `${correctedY}px`)
-				.fromTo('scale', this.currentScale, this.currentScale)
-				.easing('ease-in')
-				.duration(50)
-				.play();
-
-			this.currentDeltaX = correctedX;
-			this.currentDeltaY = correctedY;
 		}
 
 		this.adjustDeltaX = this.currentDeltaX;
@@ -107,7 +108,7 @@ export class ImageViewerZoomGesture extends Gesture {
 	onDoubleTap(event) {
 		this.component.isZoomed = !this.component.isZoomed;
 		if (this.component.isZoomed) {
-			this.currentScale = MAX_SCALE;
+			this.currentScale = 2;
 		} else {
 			this.currentScale = 1;
 
