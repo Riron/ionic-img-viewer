@@ -9,7 +9,7 @@ Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 - Tap on the pic to see it fullscreen
 - Slide up/down to close the view
 - Tap on the navigation arrow to close the view
-- Double tap on the pic when open to zoom
+- Double tap / pinch the pic when open to zoom
 
 ## Demo
 
