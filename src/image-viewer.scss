@@ -17,6 +17,10 @@ image-viewer.ion-page {
             background-color: transparent;
         }
 
+        &.toolbar.toolbar-ios {
+            padding-top: calc(20px + 4px);
+        }
+
         .bar-button-default {
             color: white;
         }
@@ -50,18 +54,5 @@ image-viewer.ion-page {
         max-width: 100%;
         max-height: 100%;
         margin: 0 auto;
-
-        transition: transform .2s ease-in-out;
-        transform-origin: 0 0;
-    }
-
-    &.zoom {
-        .image-wrapper {
-            overflow: auto;
-        }
-
-        img {
-            transform: scale(2);
-        }
     }
 }

@@ -1,16 +1,22 @@
-import { DomController, NavController, NavParams, Transition } from 'ionic-angular';
-import { Ion } from 'ionic-angular/components/ion';
-import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
-import { GestureController } from 'ionic-angular/gestures/gesture-controller';
-import { Config } from 'ionic-angular/config/config';
-import { Platform } from 'ionic-angular/platform/platform';
-import { ElementRef, Renderer, Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import {
+	DomController,
+	NavController,
+	NavParams,
+	Transition,
+	Ion,
+	PanGesture,
+	Gesture,
+	GestureController,
+	Config,
+	Platform
+} from 'ionic-angular';
+import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from 'ionic-angular/gestures/hammer';
+import { ElementRef, Renderer, Component, OnInit, OnDestroy, AfterViewInit, NgZone, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-import { ImageViewerGesture } from './image-viewer-gesture';
+import { ImageViewerTransitionGesture } from './image-viewer-transition-gesture';
+import { ImageViewerZoomGesture } from './image-viewer-zoom-gesture';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
-
-const DOUBLE_TAP_INTERVAL = 300;
 
 @Component({
 	selector: 'image-viewer',
@@ -23,17 +29,20 @@ const DOUBLE_TAP_INTERVAL = 300;
 		<ion-backdrop></ion-backdrop>
 
 		<div class="image-wrapper">
-			<div class="image">
-				<img [src]="imageUrl" (click)="onImageClick()" tappable />
+			<div class="image" #imageContainer>
+				<img [src]="imageUrl" tappable />
 			</div>
 		</div>
 	`
 })
-export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
+export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, AfterViewInit {
 	public imageUrl: SafeUrl;
 
-	private dragGesture: PanGesture;
-	private dblClickInAction: boolean;
+	public dragGesture: ImageViewerTransitionGesture;
+
+	@ViewChild('imageContainer') imageContainer;
+	private pinchGesture: ImageViewerZoomGesture;
+
 	public isZoomed: boolean;
 
 	constructor(
@@ -56,24 +65,16 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		let gestureCallBack = () => this._nav.pop();
-		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerGesture(this.platform, this, this.domCtrl, gestureCallBack));
+		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerTransitionGesture(this.platform, this, this.domCtrl, this.renderer, gestureCallBack));
+	}
+
+	ngAfterViewInit() {
+		// imageContainer is set after the view has been initialized
+		this._zone.runOutsideAngular(() => this.pinchGesture = new ImageViewerZoomGesture(this, this.imageContainer, this.platform, this.renderer));
 	}
 
 	ngOnDestroy() {
 		this.dragGesture && this.dragGesture.destroy();
-	}
-
-	onImageClick() {
-		if (this.dblClickInAction) {
-			this.onImageDblClick();
-		} else {
-			this.dblClickInAction = true;
-			setTimeout(() => this.dblClickInAction = false, DOUBLE_TAP_INTERVAL);
-		}
-	}
-
-	onImageDblClick() {
-		this.isZoomed = !this.isZoomed;
-		this.renderer.setElementClass(this.getNativeElement(), 'zoom', this.isZoomed);
+		this.pinchGesture && this.pinchGesture.destroy();
 	}
 }

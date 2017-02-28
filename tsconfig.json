@@ -27,7 +27,8 @@
     "src/image-viewer.component.ts",
     "src/image-viewer.directive.ts",
     "src/image-viewer.ts",
-    "src/image-viewer-gesture.ts",
+    "src/image-viewer-transition-gesture.ts",
+    "src/image-viewer-zoom-gesture.ts",
     "src/image-viewer-transitions.ts",
     "src/module.ts"
   ],

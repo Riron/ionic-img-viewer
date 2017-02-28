@@ -11,20 +11,22 @@ export function registerCustomTransitions(config: Config) {
 export class ImageViewerEnter extends Transition {
 	init() {
 
-		let ele = this.enteringView.pageRef().nativeElement;
+		const ele = this.enteringView.pageRef().nativeElement;
 
-		let fromPosition = this.enteringView.data.position;
-		let toPosition = ele.querySelector('img').getBoundingClientRect();
-		let flipS = fromPosition.width / toPosition.width;
-		let flipY = fromPosition.top - toPosition.top;
-		let flipX = fromPosition.left - toPosition.left;
+		const fromPosition = this.enteringView.data.position;
+		const toPosition = ele.querySelector('img').getBoundingClientRect();
+		const flipS = fromPosition.width / toPosition.width;
+		const flipY = fromPosition.top - toPosition.top;
+		const flipX = fromPosition.left - toPosition.left;
 
-		let backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-		let image = new Animation(this.plt, ele.querySelector('.image'));
+		const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+		const image = new Animation(this.plt, ele.querySelector('.image'));
 
 		image.fromTo('translateY', `${flipY}px`, '0px')
 			.fromTo('translateX', `${flipX}px`, '0px')
-			.fromTo('scale', flipS, '1');
+			.fromTo('scale', flipS, '1')
+			.beforeStyles({ 'transform-origin': '0 0' })
+			.afterClearStyles(['transform-origin']);
 
 		backdrop.fromTo('opacity', '0.01', '1');
 
@@ -37,11 +39,11 @@ export class ImageViewerEnter extends Transition {
 		const enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
 		const enteringBackBtnEle = enteringPageEle.querySelector('.back-button');
 
-		let enteringNavBar = new Animation(this.plt, enteringNavbarEle);
+		const enteringNavBar = new Animation(this.plt, enteringNavbarEle);
 		enteringNavBar.beforeAddClass('show-navbar');
 		this.add(enteringNavBar);
 
-		let enteringBackButton = new Animation(this.plt, enteringBackBtnEle);
+		const enteringBackButton = new Animation(this.plt, enteringBackBtnEle);
 		this.add(enteringBackButton);
 		enteringBackButton.beforeAddClass('show-back-button');
 	}
@@ -50,30 +52,32 @@ export class ImageViewerEnter extends Transition {
 export class ImageViewerLeave extends Transition {
 	init() {
 
-		let ele = this.leavingView.pageRef().nativeElement;
+		const ele = this.leavingView.pageRef().nativeElement;
 
-		let toPosition = this.leavingView.data.position;
-		let fromPosition = ele.querySelector('img').getBoundingClientRect();
+		const toPosition = this.leavingView.data.position;
+		const fromPosition = ele.querySelector('img').getBoundingClientRect();
 
 		let offsetY = 0;
-		let imageYOffset = ele.querySelector('.image').style[this.plt.Css.transform];
+		const imageYOffset = ele.querySelector('.image').style[this.plt.Css.transform];
 		if (imageYOffset) {
-			let regexResult = imageYOffset.match(/translateY\((-?\d+)px\)/);
+			const regexResult = imageYOffset.match(/translateY\((-?\d*\.?\d*)px\)/);
 			offsetY = regexResult ? parseFloat(regexResult[1]) : offsetY;
 		}
 
-		let flipS = toPosition.width / fromPosition.width;
-		let flipY = toPosition.top - fromPosition.top + offsetY;
-		let flipX = toPosition.left - fromPosition.left;
+		const flipS = toPosition.width / fromPosition.width;
+		const flipY = toPosition.top - fromPosition.top + offsetY;
+		const flipX = toPosition.left - fromPosition.left;
 
-		let backdropOpacity = ele.querySelector('ion-backdrop').style['opacity'];
+		const backdropOpacity = ele.querySelector('ion-backdrop').style['opacity'];
 
-		let backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-		let image = new Animation(this.plt, ele.querySelector('.image'));
+		const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+		const image = new Animation(this.plt, ele.querySelector('.image'));
 
 		image.fromTo('translateY', `${offsetY}px`, `${flipY}px`)
 			.fromTo('translateX', `0px`, `${flipX}px`)
-			.fromTo('scale', '1', flipS);
+			.fromTo('scale', '1', flipS)
+			.beforeStyles({ 'transform-origin': '0 0' })
+			.afterClearStyles(['transform-origin']);
 
 		backdrop.fromTo('opacity', backdropOpacity, '0');
 
