@@ -15,7 +15,9 @@ export class ImageViewerDirective {
 		private _el: ElementRef
 	) { }
 
-	@HostListener('click') onClick(): void {
+	@HostListener('click', ['$event']) onClick(event: Event): void {
+		event.stopPropagation();
+
 		let position = this._el.nativeElement.getBoundingClientRect();
 
 		let imageViewer = ImageViewer.create({image: this.src || this._el.nativeElement.src, position: position});
