@@ -20,7 +20,7 @@
   ],
   "author": "Orion Charlier",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@angular/common": "2.4.8",
     "@angular/compiler": "2.4.8",
     "@angular/compiler-cli": "2.4.8",
@@ -30,12 +30,12 @@
     "@angular/platform-browser": "2.4.8",
     "@angular/platform-browser-dynamic": "2.4.8",
     "@angular/platform-server": "2.4.8",
-    "ionic-angular": "^2.2.0",
     "rxjs": "5.0.1",
-    "zone.js": "0.7.2"
-  },
-  "devDependencies": {
+    "zone.js": "0.7.2",
     "typescript": "2.0.9",
     "copyfiles": "1.0.0"
+  },
+  "peerDependencies": {
+    "ionic-angular": "^2.2.0"
   }
 }

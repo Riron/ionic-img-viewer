@@ -1,3 +1,19 @@
+# 1.3.3
+
+Use `peerDependencies` to avoid install of the plugin with the wrong version of `ionic-angular`.
+
+# 1.3.2
+
+**fix(directive)** Stop event propagation when we click on an imageViewer element.
+
+# 1.3.1
+
+Compatibility with Ionic 2.3.0
+
+# 1.3.0
+
+Compatibility with Ionic 2.2.0
+
 # 1.2.2
 
 ### Features
