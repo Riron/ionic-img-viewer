@@ -1,6 +1,6 @@
 import { Renderer } from '@angular/core';
 import { ImageViewerComponent } from './image-viewer.component';
-import { PanGesture } from 'ionic-angular/gestures/drag-gesture';
+import { PanGesture } from 'ionic-angular/gestures/pan-gesture';
 import { pointerCoord } from 'ionic-angular/util/dom';
 import { Platform } from 'ionic-angular/platform/platform';
 import { Animation, DomController } from 'ionic-angular';
