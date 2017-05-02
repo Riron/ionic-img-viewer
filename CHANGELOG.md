@@ -1,3 +1,7 @@
+# 2.0.0
+
+Support for Ionic 3.0.x
+
 # 1.3.4
 
 Add support for Android back button.
