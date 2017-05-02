@@ -1,3 +1,7 @@
+# 1.3.4
+
+Add support for Android back button.
+
 # 1.3.3
 
 Use `peerDependencies` to avoid install of the plugin with the wrong version of `ionic-angular`.

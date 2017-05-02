@@ -1,6 +1,6 @@
 {
   "name": "ionic-img-viewer",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Ionic 2 component providing a Twitter inspired experience to visualize pictures.",
   "main": "./dist/ionic-img-viewer.js",
   "typings": "./dist/ionic-img-viewer.d.ts",
