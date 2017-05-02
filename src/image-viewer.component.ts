@@ -45,6 +45,8 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 
 	public isZoomed: boolean;
 
+	private unregisterBackButton: Function;
+
 	constructor(
 		public _gestureCtrl: GestureController,
 		public elementRef: ElementRef,
@@ -64,8 +66,10 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 	}
 
 	ngOnInit() {
-		let gestureCallBack = () => this._nav.pop();
-		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerTransitionGesture(this.platform, this, this.domCtrl, this.renderer, gestureCallBack));
+		const navPop = () => this._nav.pop();
+
+		this.unregisterBackButton = this.platform.registerBackButtonAction(navPop);
+		this._zone.runOutsideAngular(() => this.dragGesture = new ImageViewerTransitionGesture(this.platform, this, this.domCtrl, this.renderer, navPop));
 	}
 
 	ngAfterViewInit() {
@@ -76,5 +80,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 	ngOnDestroy() {
 		this.dragGesture && this.dragGesture.destroy();
 		this.pinchGesture && this.pinchGesture.destroy();
+
+		this.unregisterBackButton();
 	}
 }
