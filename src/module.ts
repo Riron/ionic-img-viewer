@@ -4,7 +4,6 @@ import { Config } from 'ionic-angular/config/config';
 
 import { ImageViewerDirective } from './image-viewer.directive';
 import { ImageViewerComponent } from './image-viewer.component';
-import { registerCustomTransitions } from './image-viewer-transitions';
 
 @NgModule({
 	imports: [IonicModule],
@@ -13,9 +12,6 @@ import { registerCustomTransitions } from './image-viewer-transitions';
 		ImageViewerDirective
 	],
 	exports: [ ImageViewerDirective ],
-	entryComponents: [ ImageViewerComponent ],
-	providers: [
-		{ provide: APP_INITIALIZER, useFactory: registerCustomTransitions, deps: [ Config ], multi: true }
-	]
+	entryComponents: [ ImageViewerComponent ]
 })
 export class IonicImageViewerModule {}

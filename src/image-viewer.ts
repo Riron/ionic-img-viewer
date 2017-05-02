@@ -1,22 +1,18 @@
-import { ViewController } from 'ionic-angular';
+import { DeepLinker, App, Config } from 'ionic-angular';
+import { Overlay } from "ionic-angular/navigation/overlay";
+import { OverlayProxy } from "ionic-angular/navigation/overlay-proxy";
 
-import { ImageViewerComponent } from './image-viewer.component';
+import { ImageViewerImpl } from './image-viewer-impl';
 
-export class ImageViewer extends ViewController {
+export class ImageViewer extends OverlayProxy {
 
-	constructor(opts: ImageViewerOptions = {}) {
-		super(ImageViewerComponent, opts);
+	constructor(app: App, component: any, private opts: ImageViewerOptions = {}, config: Config, deepLinker: DeepLinker) {
+		super(app, component, config, deepLinker);
 	}
 
-	getTransitionName(direction: string) {
-		let key = 'image-viewer-' + (direction === 'back' ? 'leave' : 'enter');
-		return key;
+	getImplementation(): Overlay {
+		return new ImageViewerImpl(this._app, this._component, this.opts, this._config);
 	}
-
-	static create(opts: ImageViewerOptions = {}) {
-		return new ImageViewer(opts);
-	}
-
 }
 
 export interface ImageViewerOptions {
