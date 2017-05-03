@@ -39,6 +39,8 @@ export class ImageViewerTransitionGesture extends PanGesture {
 	}
 
 	onDragStart(ev: any): boolean {
+		ev.preventDefault();
+
 		if (this.isPinching(ev)) {
 			this.abort(ev);
 		}
