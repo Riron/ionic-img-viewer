@@ -1,3 +1,7 @@
+# 2.1.0
+
+Support for Ionic 3.1.x
+
 # 2.0.0
 
 Support for Ionic 3.0.x
