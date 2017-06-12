@@ -19,4 +19,5 @@ export interface ImageViewerOptions {
 	enableBackdropDismiss?: boolean;
 	image?: string;
 	position?: ClientRect;
+	onCloseCallback?: Function;
 }

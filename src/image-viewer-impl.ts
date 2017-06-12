@@ -1,5 +1,7 @@
-import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 import { App, Config, ViewController, NavOptions } from 'ionic-angular';
+
+import { ImageViewerOptions } from './image-viewer';
+import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 
 export class ImageViewerImpl extends ViewController {
 
@@ -8,6 +10,8 @@ export class ImageViewerImpl extends ViewController {
 
 		config.setTransition('image-viewer-enter', ImageViewerEnter);
 		config.setTransition('image-viewer-leave', ImageViewerLeave);
+
+		this.didLeave.subscribe(() => opts.onCloseCallback && opts.onCloseCallback());
 	}
 
 	getTransitionName(direction: string) {
@@ -18,10 +22,4 @@ export class ImageViewerImpl extends ViewController {
 	present(navOptions: NavOptions = {}) {
 		return this.app.present(this, navOptions);
 	}
-}
-
-export interface ImageViewerOptions {
-	enableBackdropDismiss?: boolean;
-	image?: string;
-	position?: ClientRect;
 }
