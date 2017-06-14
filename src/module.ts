@@ -4,6 +4,7 @@ import { Config } from 'ionic-angular/config/config';
 
 import { ImageViewerDirective } from './image-viewer.directive';
 import { ImageViewerComponent } from './image-viewer.component';
+import { ImageViewerController } from "./image-viewer.controller";
 
 @NgModule({
 	imports: [IonicModule],
@@ -11,6 +12,7 @@ import { ImageViewerComponent } from './image-viewer.component';
 		ImageViewerComponent,
 		ImageViewerDirective
 	],
+	providers: [ ImageViewerController ],
 	exports: [ ImageViewerDirective ],
 	entryComponents: [ ImageViewerComponent ]
 })

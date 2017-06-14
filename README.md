@@ -36,7 +36,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 export class AppModule {}
 ```
 
-## Usage
+## Usage as a directive
 
 Add the `imageViewer` property to the pictures.
 
@@ -52,6 +52,39 @@ If you use thumbnails and want to display bigger images, you can use it like so 
 
 However, if `OTHER_IMAGE_URL` is not preloaded, the animation might suffer. Indeed there will be no ready image to make the transition (it might blink and you'll not get the smooth transition effet while opening).
 So try to cache your image before the call if you use it that way.
+
+If you need to, you can attach a callback to the `onClose` event, fired right after the image viewer element has been closed :
+
+```html
+<img src="IMAGE_URL" imageViewer (onClose)="callbackAfterImageviewerCloses()" />
+```
+
+## Programmatic usage
+
+If you don't want to use the directive, you can create an instance of an ImageViewer yourself, and trigger the presentation when you want.
+
+```html
+<img src="IMAGE_URL" #myImage />
+```
+
+```typescript
+import { ImageViewerController } from 'ionic-img-viewer';
+
+export class MyPage {
+  constructor(public imageViewerCtrl: ImageViewerController) {
+  }
+
+  presentImage() {
+    let imageViewer = this.imageViewerCtrl.create(myImage);
+    imageViewer.present();
+  }
+}
+```
+
+| Options         | Type     | Description  |
+| --------------- |:---------| :------------|
+| image           | string   | The image path. Default to the `src` of the element passed as first param  |
+| onCloseCallback | Function | Function to be called when the ImageViewer quits. Default to null |
 
 # Contributing
 
