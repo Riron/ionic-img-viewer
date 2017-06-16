@@ -10,7 +10,7 @@ import { ImageViewer } from './image-viewer';
 export class ImageViewerDirective {
 
 	@Input('imageViewer') src: string;
-	@Output() onClose = new EventEmitter();
+	@Output() close = new EventEmitter();
 
 	constructor(private _app: App, private _el: ElementRef, private config: Config, private deepLinker: DeepLinker) { }
 
@@ -19,7 +19,7 @@ export class ImageViewerDirective {
 
 		const image = this.src || this._el.nativeElement.src;
 		const position = this._el.nativeElement.getBoundingClientRect();
-		const onCloseCallback = () => this.onClose.emit()
+		const onCloseCallback = () => this.close.emit()
 
 		const options = { image, position, onCloseCallback };
 
