@@ -57,12 +57,16 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 		private platform: Platform,
 		_navParams: NavParams,
 		_config: Config,
-		_sanitizer: DomSanitizer
+		private _sanitizer: DomSanitizer
 	) {
 		super(_config, elementRef, renderer);
 
 		const url = _navParams.get('image');
 		this.imageUrl = _sanitizer.bypassSecurityTrustUrl(url);
+	}
+
+	updateImageSrc(src) {
+		this.imageUrl = this._sanitizer.bypassSecurityTrustUrl(src);
 	}
 
 	ngOnInit() {
