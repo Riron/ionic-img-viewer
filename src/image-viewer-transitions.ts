@@ -3,6 +3,7 @@ import { Transition, Animation } from 'ionic-angular';
 export class ImageViewerEnter extends Transition {
 	init() {
 
+		const css = this.plt.Css;
 		const ele = this.enteringView.pageRef().nativeElement;
 
 		const fromPosition = this.enteringView.data.position;
@@ -11,14 +12,17 @@ export class ImageViewerEnter extends Transition {
 		const flipY = fromPosition.top - toPosition.top;
 		const flipX = fromPosition.left - toPosition.left;
 
+		const imgElement = ele.querySelector('.image');
 		const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-		const image = new Animation(this.plt, ele.querySelector('.image'));
+		const image = new Animation(this.plt, imgElement);
+
+		// Using `Animation.beforeStyles()` here does not seems to work
+		imgElement.style[css.transformOrigin] = '0 0';
 
 		image.fromTo('translateY', `${flipY}px`, '0px')
 			.fromTo('translateX', `${flipX}px`, '0px')
 			.fromTo('scale', flipS, '1')
-			.beforeStyles({ 'transform-origin': '0 0' })
-			.afterClearStyles(['transform-origin']);
+			.afterClearStyles([ css.transformOrigin ]);
 
 		backdrop.fromTo('opacity', '0.01', '1');
 
@@ -32,25 +36,28 @@ export class ImageViewerEnter extends Transition {
 		const enteringBackBtnEle = enteringPageEle.querySelector('.back-button');
 
 		const enteringNavBar = new Animation(this.plt, enteringNavbarEle);
-		enteringNavBar.beforeAddClass('show-navbar');
+		enteringNavBar.afterAddClass('show-navbar');
 		this.add(enteringNavBar);
 
 		const enteringBackButton = new Animation(this.plt, enteringBackBtnEle);
 		this.add(enteringBackButton);
-		enteringBackButton.beforeAddClass('show-back-button');
+		enteringBackButton.afterAddClass('show-back-button');
 	}
 }
 
 export class ImageViewerLeave extends Transition {
 	init() {
 
+		const css = this.plt.Css;
 		const ele = this.leavingView.pageRef().nativeElement;
 
 		const toPosition = this.leavingView.data.position;
 		const fromPosition = ele.querySelector('img').getBoundingClientRect();
 
+		const imageElement = ele.querySelector('.image');
+
 		let offsetY = 0;
-		const imageYOffset = ele.querySelector('.image').style[this.plt.Css.transform];
+		const imageYOffset = imageElement.style[css.transform];
 		if (imageYOffset) {
 			const regexResult = imageYOffset.match(/translateY\((-?\d*\.?\d*)px\)/);
 			offsetY = regexResult ? parseFloat(regexResult[1]) : offsetY;
@@ -63,13 +70,13 @@ export class ImageViewerLeave extends Transition {
 		const backdropOpacity = ele.querySelector('ion-backdrop').style['opacity'];
 
 		const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-		const image = new Animation(this.plt, ele.querySelector('.image'));
+		const image = new Animation(this.plt, imageElement);
 
 		image.fromTo('translateY', `${offsetY}px`, `${flipY}px`)
 			.fromTo('translateX', `0px`, `${flipX}px`)
 			.fromTo('scale', '1', flipS)
-			.beforeStyles({ 'transform-origin': '0 0' })
-			.afterClearStyles(['transform-origin']);
+			.beforeStyles({ [css.transformOrigin]: '0 0' })
+			.afterClearStyles([css.transformOrigin]);
 
 		backdrop.fromTo('opacity', backdropOpacity, '0');
 

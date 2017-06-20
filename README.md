@@ -23,7 +23,9 @@ Make sure you have Ionic and Angular installed.
 npm install --save ionic-img-viewer
 ```
 
-**For Ionic 2 RC.0 and later:**
+**Check you peer-dependencies warnings after `npm install` to make sure you are using a version in accordance to your Ionic version.**
+
+### For Ionic 2 RC.0 and later:
 
 ```typescript
 import { IonicImageViewerModule } from 'ionic-img-viewer';
@@ -38,7 +40,10 @@ export class AppModule {}
 
 ## Usage
 
-Add the `imageViewer` property to the pictures.
+
+### As a directive
+
+Add the `imageViewer` property to the image element.
 
 ```html
 <img src="IMAGE_URL" imageViewer />
@@ -50,8 +55,49 @@ If you use thumbnails and want to display bigger images, you can use it like so 
 <img src="IMAGE_URL" imageViewer="OTHER_IMAGE_URL" />
 ```
 
-However, if `OTHER_IMAGE_URL` is not preloaded, the animation might suffer. Indeed there will be no ready image to make the transition (it might blink and you'll not get the smooth transition effet while opening).
+However, if `OTHER_IMAGE_URL` is not preloaded, the animation might suffer. There will be no loaded image to display in order to have the nice and smooth transition, and you might see the image blinking while opening it.
+
 So try to cache your image before the call if you use it that way.
+
+### React to close event
+
+If you need to, you can attach a callback to `close` event, fired right after the image viewer element has been closed :
+
+```html
+<img src="IMAGE_URL" imageViewer (close)="callbackAfterImageViewerCloses()" />
+```
+
+### Programmatic usage
+
+If you don't want to use the directive, you can create an instance of the ImageViewer yourself, and trigger the presentation whenever you want.
+
+```html
+<img src="IMAGE_URL" #myImage (click)="presentImage(myImage)" />
+```
+
+```typescript
+import { ImageViewerController } from 'ionic-img-viewer';
+
+export class MyPage {
+  _imageViewerCtrl: ImageViewerController;
+
+  constructor(imageViewerCtrl: ImageViewerController) {
+    this._imageViewerCtrl = imageViewerCtrl;
+  }
+
+  presentImage(myImage) {
+    const imageViewer = this._imageViewerCtrl.create(myImage);
+    imageViewer.present();
+  }
+}
+```
+
+As a second argument to the `create(imageElement, config)` method, you can pass an object with the following options.
+
+| Options         | Type     | Description  |
+| --------------- |:---------| :------------|
+| fullResImage    | string   | A full resolution image to display instead of the original image when open. Default to null |
+| onCloseCallback | Function | Function to be called when the ImageViewer quits. Default to null |
 
 # Contributing
 

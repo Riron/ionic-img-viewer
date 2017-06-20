@@ -8,12 +8,14 @@ import {
 	Gesture,
 	GestureController,
 	Config,
-	Platform
+	Platform,
+    Animation
 } from 'ionic-angular';
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from 'ionic-angular/gestures/hammer';
 import { ElementRef, Renderer, Component, OnInit, OnDestroy, AfterViewInit, NgZone, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+import { ImageViewerSrcAnimation } from './image-viewer-src-animation';
 import { ImageViewerTransitionGesture } from './image-viewer-transition-gesture';
 import { ImageViewerZoomGesture } from './image-viewer-zoom-gesture';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
@@ -30,7 +32,7 @@ import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 
 		<div class="image-wrapper">
 			<div class="image" #imageContainer>
-				<img [src]="imageUrl" tappable />
+				<img [src]="imageUrl" tappable #image />
 			</div>
 		</div>
 	`
@@ -41,6 +43,8 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 	public dragGesture: ImageViewerTransitionGesture;
 
 	@ViewChild('imageContainer') imageContainer;
+	@ViewChild('image') image;
+
 	private pinchGesture: ImageViewerZoomGesture;
 
 	public isZoomed: boolean;
@@ -57,12 +61,26 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 		private platform: Platform,
 		_navParams: NavParams,
 		_config: Config,
-		_sanitizer: DomSanitizer
+		private _sanitizer: DomSanitizer
 	) {
 		super(_config, elementRef, renderer);
 
 		const url = _navParams.get('image');
-		this.imageUrl = _sanitizer.bypassSecurityTrustUrl(url);
+		this.updateImageSrc(url);
+	}
+
+	updateImageSrc(src) {
+		this.imageUrl = this._sanitizer.bypassSecurityTrustUrl(src);
+	}
+
+	updateImageSrcWithTransition(src) {
+		const imageElement = this.image.nativeElement;
+		const lowResImgWidth = imageElement.clientWidth;
+
+		this.updateImageSrc(src);
+
+		const animation = new ImageViewerSrcAnimation(this.platform, this.image);
+		imageElement.onload = () => animation.scaleFrom(lowResImgWidth);
 	}
 
 	ngOnInit() {

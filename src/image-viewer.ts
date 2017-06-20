@@ -3,10 +3,11 @@ import { Overlay } from "ionic-angular/navigation/overlay";
 import { OverlayProxy } from "ionic-angular/navigation/overlay-proxy";
 
 import { ImageViewerImpl } from './image-viewer-impl';
+import { ImageViewerComponent } from "./image-viewer.component";
 
 export class ImageViewer extends OverlayProxy {
 
-	constructor(app: App, component: any, private opts: ImageViewerOptions = {}, config: Config, deepLinker: DeepLinker) {
+	constructor(app: App, component: typeof ImageViewerComponent, private opts: ImageViewerOptions = {}, config: Config, deepLinker: DeepLinker) {
 		super(app, component, config, deepLinker);
 	}
 
@@ -18,6 +19,7 @@ export class ImageViewer extends OverlayProxy {
 export interface ImageViewerOptions {
 	enableBackdropDismiss?: boolean;
 	image?: string;
+	fullResImage?: string
 	position?: ClientRect;
 	onCloseCallback?: Function;
 }
