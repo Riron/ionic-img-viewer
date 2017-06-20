@@ -18,6 +18,15 @@ export class ImageViewerImpl extends ViewController {
 		this.willEnter.subscribe(() => this.handleHighResImageLoad(opts.fullResImage));
 	}
 
+	getTransitionName(direction: string) {
+		let key = 'image-viewer-' + (direction === 'back' ? 'leave' : 'enter');
+		return key;
+	}
+
+	present(navOptions: NavOptions = {}) {
+		return this.app.present(this, navOptions);
+	}
+
 	private handleHighResImageLoad(fullResImage){
 		if (!fullResImage) {
 			return;
@@ -37,19 +46,10 @@ export class ImageViewerImpl extends ViewController {
 			// We want the animation to finish before replacing the pic
 			// as the calculation has been done with the smaller image
 			Observable.zip(onLoadObservable, this.didEnter)
-				.subscribe(() => this.instance.updateImageSrc(fullResImage));
+				.subscribe(() => this.instance.updateImageSrcWithTransition(fullResImage));
 
 		} else {
 			this.instance.updateImageSrc(fullResImage)
 		}
-	}
-
-	getTransitionName(direction: string) {
-		let key = 'image-viewer-' + (direction === 'back' ? 'leave' : 'enter');
-		return key;
-	}
-
-	present(navOptions: NavOptions = {}) {
-		return this.app.present(this, navOptions);
 	}
 }

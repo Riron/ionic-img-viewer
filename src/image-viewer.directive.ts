@@ -1,4 +1,3 @@
-import { App, Config, DeepLinker } from 'ionic-angular';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 import { ImageViewerComponent } from './image-viewer.component';
@@ -14,10 +13,7 @@ export class ImageViewerDirective {
 	@Output() close = new EventEmitter();
 
 	constructor(
-		private _app: App,
 		private _el: ElementRef,
-		private config: Config,
-		private deepLinker: DeepLinker,
 		private imageViewerCtrl: ImageViewerController
 	) { }
 
