@@ -1,3 +1,10 @@
+# 2.4.0
+
+- Support for Ionic 3.4.x
+- Support for opening the viewer through code
+- Better support for high resolution images replacing small images when the viewer is open
+- `close` event emitted when the viewer exits the view
+
 # 2.3.0
 
 Support for Ionic 3.3.x
