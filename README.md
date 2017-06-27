@@ -1,4 +1,4 @@
-# Image viewer for Ionic2
+# Image viewer for Ionic 2+
 
 Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
@@ -13,7 +13,7 @@ Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
 ## Demo
 
-[Demo on Plunkr](http://plnkr.co/edit/8f5MubWSohI3Q9DfKX9S?p=preview)
+[Demo on Plunkr](http://embed.plnkr.co/isbTOupNw51JjaaksbSE/)
 
 ## Installation
 
