@@ -1,5 +1,5 @@
 import { Renderer } from '@angular/core';
-import { Animation, DomController, Gesture, Platform } from 'ionic-angular';
+import { Animation, Gesture, Platform } from 'ionic-angular';
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from 'ionic-angular/gestures/hammer';
 
 import { ImageViewerComponent } from './image-viewer.component';
@@ -46,9 +46,8 @@ export class ImageViewerZoomGesture extends Gesture {
 
 	onPinchEnd(event) {
 		this.component.isZoomed = (this.currentScale !== 1);
-
+    this.component.sliderContainer.lockSwipes(true);
 		if (!this.component.isZoomed) {
-
 			new Animation(this.platform, this.element)
 				.fromTo('translateX', `${this.currentDeltaX}px`, '0')
 				.fromTo('translateY', `${this.currentDeltaY}px`, '0')
@@ -58,6 +57,8 @@ export class ImageViewerZoomGesture extends Gesture {
 
 			this.currentDeltaX = 0;
 			this.currentDeltaY = 0;
+
+      this.component.sliderContainer.lockSwipes(false);
 		}
 
 		// Saving the final transforms for adjustment next time the user interacts.
@@ -68,25 +69,28 @@ export class ImageViewerZoomGesture extends Gesture {
 
 	onPanStart(event) {
 		if (!this.component.isZoomed) {
+      this.component.sliderContainer.lockSwipes(false);
 			return;
 		}
-
 		const originalImageWidth = this.element.offsetWidth;
 		const originalImageHeight = this.element.offsetHeight;
 
 		this.allowedXMargin = ((originalImageWidth * this.currentScale) - originalImageWidth) / 4;
 		this.allowedYMargin = ((originalImageHeight * this.currentScale) - originalImageHeight) / 4;
+
+    this.component.sliderContainer.lockSwipes(true);
 	}
 
 	onPan(event) {
 		if (!this.component.isZoomed) {
+      this.component.sliderContainer.lockSwipes(false);
 			return;
 		}
-
 		this.currentDeltaX = this.boundAdjustement(Math.floor(this.adjustDeltaX + event.deltaX), this.allowedXMargin);
 		this.currentDeltaY = this.boundAdjustement(Math.floor(this.adjustDeltaY + event.deltaY), this.allowedYMargin);
 
 		this.setImageContainerTransform();
+    this.component.sliderContainer.lockSwipes(true);
 	}
 
 	boundAdjustement(adjustement, bound) {
@@ -98,22 +102,25 @@ export class ImageViewerZoomGesture extends Gesture {
 
 	onPanEnd(event) {
 		if (!this.component.isZoomed) {
+      this.component.sliderContainer.lockSwipes(false);
 			return;
 		}
-
 		this.adjustDeltaX = this.currentDeltaX;
 		this.adjustDeltaY = this.currentDeltaY;
+    this.component.sliderContainer.lockSwipes(true);
 	}
 
 	onDoubleTap(event) {
 		this.component.isZoomed = !this.component.isZoomed;
 		if (this.component.isZoomed) {
 			this.currentScale = 2;
-		} else {
+      this.component.sliderContainer.lockSwipes(true);
+    } else {
 			this.currentScale = 1;
 
 			this.adjustDeltaX = this.currentDeltaX = 0;
 			this.adjustDeltaY = this.currentDeltaY = 0;
+      this.component.sliderContainer.lockSwipes(false);
 		}
 
 		this.adjustScale = this.currentScale;
