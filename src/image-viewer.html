@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-backdrop></ion-backdrop>
+
+<div class="image-wrapper">
+  <div class="image" #imageContainer>
+    <ion-slides #sliderContainer initialSlide="{{imageCurIndex}}">
+      <ion-slide *ngFor="let img of imageUrl">
+        <img [src]="img" tappable #image/>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</div>
