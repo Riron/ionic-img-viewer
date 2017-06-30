@@ -22,7 +22,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
   public imageUrl: SafeUrl[] = [];
   public imageCurIndex: number = 0;
   public originalSrc: string;
-  public imageChange: SafeUrl;
+  // public safeImage: SafeUrl[] = [];
 
   public dragGesture: ImageViewerTransitionGesture;
 
@@ -58,11 +58,12 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
       let safeImage: SafeUrl[] = [];
       for (let i = 0; i < srcLen; i++) {
         if(this.originalSrc === src[i]){
-          this.imageCurIndex = i;
-        }
-        if(i === 0){
-          this.imageChange = this._sanitizer.bypassSecurityTrustUrl(src[i]);
-          safeImage = safeImage.concat(this.imageUrl);
+          // this.imageCurIndex = i;
+          if(this.imageUrl.length){
+            safeImage.unshift(this.imageUrl[0]);
+          }else{
+            safeImage.unshift(this._sanitizer.bypassSecurityTrustUrl(src[i]));
+          }
           continue;
         }
         safeImage.push(this._sanitizer.bypassSecurityTrustUrl(src[i]));
@@ -94,10 +95,6 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
   ngAfterViewInit() {
     // imageContainer is set after the view has been initialized
     this._zone.runOutsideAngular(() => this.pinchGesture = new ImageViewerZoomGesture(this, this.imageContainer, this.platform, this.renderer));
-  }
-
-  ionViewDidEnter(){
-    this.imageUrl[0] = this.imageChange;
   }
 
   ngOnDestroy() {

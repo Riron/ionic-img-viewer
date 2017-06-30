@@ -8,8 +8,9 @@
 <div class="image-wrapper">
   <div class="image" #imageContainer>
     <ion-slides #sliderContainer initialSlide="{{imageCurIndex}}">
-      <ion-slide *ngFor="let img of imageUrl">
-        <img [src]="img" tappable #image/>
+      <ion-slide *ngFor="let img of imageUrl; let index = index">
+        <img [src]="img" tappable #image *ngIf="index === imageCurIndex"/>
+        <img [src]="img" tappable *ngIf="index !== imageCurIndex"/>
       </ion-slide>
     </ion-slides>
   </div>
