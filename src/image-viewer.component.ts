@@ -23,7 +23,7 @@ import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 @Component({
 	selector: 'image-viewer',
 	template: `
-		<ion-header>
+		<ion-header no-border>
 			<ion-navbar>
 			</ion-navbar>
 		</ion-header>
