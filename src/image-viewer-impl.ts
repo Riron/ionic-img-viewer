@@ -27,7 +27,7 @@ export class ImageViewerImpl extends ViewController {
   }
 
   private handleHighResImageLoad(fullResImage) {
-    if (!fullResImage.length) {
+    if (!fullResImage) {
       return;
     }
 
