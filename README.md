@@ -1,5 +1,7 @@
 # Image viewer for Ionic 2+
 
+[![NPM](https://nodei.co/npm/ionic-img-viewer.png?downloads=true)](https://nodei.co/npm/ionic-img-viewer/)
+
 Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
 ![Plugin preview](https://raw.githubusercontent.com/riron/ionic-img-viewer/master/demo/img-viewer2.gif)
