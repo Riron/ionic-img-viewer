@@ -1,6 +1,5 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { IonicModule } from 'ionic-angular';
-import { Config } from 'ionic-angular/config/config';
+import { IonicModule, Config } from 'ionic-angular';
 
 import { ImageViewerDirective } from './image-viewer.directive';
 import { ImageViewerComponent } from './image-viewer.component';
