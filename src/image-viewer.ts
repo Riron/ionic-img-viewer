@@ -1,9 +1,9 @@
 import { DeepLinker, App, Config } from 'ionic-angular';
-import { Overlay } from "ionic-angular/navigation/overlay";
-import { OverlayProxy } from "ionic-angular/navigation/overlay-proxy";
+import { Overlay } from 'ionic-angular/navigation/overlay';
+import { OverlayProxy } from 'ionic-angular/navigation/overlay-proxy';
 
 import { ImageViewerImpl } from './image-viewer-impl';
-import { ImageViewerComponent } from "./image-viewer.component";
+import { ImageViewerComponent } from './image-viewer.component';
 
 export class ImageViewer extends OverlayProxy {
 

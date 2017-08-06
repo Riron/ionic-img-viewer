@@ -2,7 +2,7 @@ import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from
 
 import { ImageViewerComponent } from './image-viewer.component';
 import { ImageViewer } from './image-viewer';
-import { ImageViewerController } from "./image-viewer.controller";
+import { ImageViewerController } from './image-viewer.controller';
 
 @Directive({
 	selector: '[imageViewer]'

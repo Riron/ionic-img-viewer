@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { ImageViewerOptions } from './image-viewer';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
-import { ImageViewerComponent } from "./image-viewer.component";
+import { ImageViewerComponent } from './image-viewer.component';
 
 export class ImageViewerImpl extends ViewController {
 
@@ -19,8 +19,7 @@ export class ImageViewerImpl extends ViewController {
 	}
 
 	getTransitionName(direction: string) {
-		let key = 'image-viewer-' + (direction === 'back' ? 'leave' : 'enter');
-		return key;
+		return `image-viewer-${direction === 'back' ? 'leave' : 'enter'}`;
 	}
 
 	present(navOptions: NavOptions = {}) {
