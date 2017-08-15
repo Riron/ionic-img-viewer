@@ -21,5 +21,6 @@ export interface ImageViewerOptions {
 	image?: string;
 	fullResImage?: string[]
 	position?: ClientRect;
+	imageCurIndex?: number;
 	onCloseCallback?: Function;
 }

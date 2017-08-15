@@ -49,6 +49,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
     super(_config, elementRef, renderer);
 
     const url = _navParams.get('image');
+    this.imageCurIndex = _navParams.get('imageCurIndex') || 0;
     this.updateImageSrc(url);
   }
 
