@@ -91,8 +91,8 @@ export class MyPage {
     const imageViewer = this._imageViewerCtrl.create(myImage);
     imageViewer.present();
 
-    setTimeout(() => viewer.dismiss(), 1000);
-    viewer.onDidDismiss(() => alert('Viewer dismissed'));
+    setTimeout(() => imageViewer.dismiss(), 1000);
+    imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
   }
 }
 ```
