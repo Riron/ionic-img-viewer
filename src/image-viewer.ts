@@ -19,7 +19,8 @@ export class ImageViewer extends OverlayProxy {
 export interface ImageViewerOptions {
 	enableBackdropDismiss?: boolean;
 	image?: string;
-	fullResImage?: string
+	fullResImage?: string[]
 	position?: ClientRect;
+	imageCurIndex?: number;
 	onCloseCallback?: Function;
 }

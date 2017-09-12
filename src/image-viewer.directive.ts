@@ -1,8 +1,7 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
-import { ImageViewerComponent } from './image-viewer.component';
-import { ImageViewer } from './image-viewer';
-import { ImageViewerController } from './image-viewer.controller';
+
+import { ImageViewerController } from "./image-viewer.controller";
 
 @Directive({
 	selector: '[imageViewer]'
@@ -22,8 +21,8 @@ export class ImageViewerDirective {
 
 		const element = this._el.nativeElement;
 		const onCloseCallback = () => this.close.emit();
-
-		const imageViewer = this.imageViewerCtrl.create(element, { fullResImage: this.src, onCloseCallback });
+		const imageViewer = this.imageViewerCtrl.create(element, { fullResImage: this.src.split(','), onCloseCallback });
 		imageViewer.present();
 	}
 }
+
