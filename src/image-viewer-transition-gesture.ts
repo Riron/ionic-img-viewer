@@ -1,9 +1,8 @@
 import { Renderer } from '@angular/core';
-import { ImageViewerComponent } from './image-viewer.component';
-import { PanGesture } from 'ionic-angular/gestures/pan-gesture';
+import { PanGesture, Platform, Animation, DomController } from 'ionic-angular';
 import { pointerCoord } from 'ionic-angular/util/dom';
-import { Platform } from 'ionic-angular/platform/platform';
-import { Animation, DomController } from 'ionic-angular';
+
+import { ImageViewerComponent } from './image-viewer.component';
 
 const HAMMER_THRESHOLD = 10;
 const MAX_ATTACK_ANGLE = 45;

@@ -3,7 +3,7 @@ import { IonicModule } from 'ionic-angular';
 
 import { ImageViewerDirective } from './image-viewer.directive';
 import { ImageViewerComponent } from './image-viewer.component';
-import { ImageViewerController } from "./image-viewer.controller";
+import { ImageViewerController } from './image-viewer.controller';
 
 @NgModule({
 	imports: [IonicModule],

@@ -1,6 +1,7 @@
 import {App, Config, NavOptions, ViewController} from 'ionic-angular';
 import {Observable} from 'rxjs/Rx';
 
+
 import {ImageViewerOptions} from './image-viewer';
 import {ImageViewerEnter, ImageViewerLeave} from './image-viewer-transitions';
 import {ImageViewerComponent} from "./image-viewer.component";

@@ -1,5 +1,7 @@
 # Image viewer for Ionic 2+
 
+[![NPM](https://nodei.co/npm/ionic-img-viewer.png?downloads=true)](https://nodei.co/npm/ionic-img-viewer/)
+
 Ionic 2 plugin providing a Twitter inspired experience to visualize pictures.
 
 ![Plugin preview](https://raw.githubusercontent.com/riron/ionic-img-viewer/master/demo/img-viewer2.gif)
@@ -69,7 +71,7 @@ If you need to, you can attach a callback to `close` event, fired right after th
 
 ### Programmatic usage
 
-If you don't want to use the directive, you can create an instance of the ImageViewer yourself, and trigger the presentation whenever you want.
+If you don't want to use the directive, you can create an instance of the ImageViewer yourself and trigger the presentation whenever you want.
 
 ```html
 <img src="IMAGE_URL" #myImage (click)="presentImage(myImage)" />
@@ -88,6 +90,9 @@ export class MyPage {
   presentImage(myImage) {
     const imageViewer = this._imageViewerCtrl.create(myImage);
     imageViewer.present();
+
+    setTimeout(() => imageViewer.dismiss(), 1000);
+    imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
   }
 }
 ```

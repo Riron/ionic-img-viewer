@@ -1,5 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
+
 import { ImageViewerController } from "./image-viewer.controller";
 
 @Directive({

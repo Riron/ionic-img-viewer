@@ -2,11 +2,11 @@
   "name": "ionic-img-viewer",
   "version": "2.6.1",
   "description": "Ionic 2 component providing a Twitter inspired experience to visualize pictures.",
-  "main": "./dist/ionic-img-viewer.js",
-  "typings": "./dist/ionic-img-viewer.d.ts",
+  "main": "./dist/es2015/ionic-img-viewer.js",
+  "typings": "./dist/es2015/ionic-img-viewer.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "node_modules/.bin/ngc && copyfiles ./src/*.scss ./dist/"
+    "prepublish": "node_modules/.bin/ngc && copyfiles ./src/*.scss ./dist/es2015/ && ngc -p tsconfig.umd.json && copyfiles ./src/*.scss ./dist/umd/"
   },
   "repository": {
     "type": "git",

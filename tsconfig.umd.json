@@ -9,10 +9,10 @@
       "dom",
       "es2015"
     ],
-    "module": "es2015",
+    "module": "umd",
     "moduleResolution": "node",
     "target": "es5",
-    "outDir": "./dist/es2015"
+    "outDir": "./dist/umd"
   },
   "exclude": [
     "node_modules"

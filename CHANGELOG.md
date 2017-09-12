@@ -1,3 +1,15 @@
+# 2.6.1
+
+Added and UMD build
+
+# 2.6.0
+
+Support for Ionic 3.6.x
+
+# 2.5.0
+
+Support for Ionic 3.5.x
+
 # 2.4.0
 
 - Support for Ionic 3.4.x
