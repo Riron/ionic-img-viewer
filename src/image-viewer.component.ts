@@ -36,7 +36,7 @@ import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 			</div>
 		</div>
 	`,
-	styleUrls: ['./image-viewer.scss']
+	styles: []
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, AfterViewInit {
 	public imageUrl: SafeUrl;

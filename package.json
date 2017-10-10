@@ -6,7 +6,7 @@
   "typings": "./dist/es2015/ionic-img-viewer.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "node_modules/.bin/ngc && copyfiles ./src/*.scss ./dist/es2015/ && ngc -p tsconfig.umd.json && copyfiles ./src/*.scss ./dist/umd/"
+    "prepublish": "node ngc-build.js"
   },
   "repository": {
     "type": "git",
@@ -30,10 +30,11 @@
     "@angular/platform-browser": "4.4.4",
     "@angular/platform-browser-dynamic": "4.4.4",
     "@angular/platform-server": "4.4.4",
+    "fs-extra": "^4.0.2",
+    "node-sass": "^4.5.3",
     "rxjs": "5.4.3",
-    "zone.js": "0.8.18",
     "typescript": "~2.3.4",
-    "copyfiles": "1.0.0"
+    "zone.js": "0.8.18"
   },
   "peerDependencies": {
     "ionic-angular": "3.7.1"
