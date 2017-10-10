@@ -1,5 +1,7 @@
+import 'rxjs/add/observable/zip';
+
 import { App, Config, NavOptions, ViewController } from 'ionic-angular';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { ImageViewerOptions } from './image-viewer';
 import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
