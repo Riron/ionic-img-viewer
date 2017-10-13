@@ -4,41 +4,52 @@ const path = require('path');
 const { exec } = require('child_process');
 
 const tempFolder = '.tmp';
-const componentPath = `./${tempFolder}/image-viewer.component.ts`;
-const scssPath = `./${tempFolder}/image-viewer.scss`;
+const componentPath = `./${tempFolder}/src/image-viewer.component.ts`;
+const scssPath = `./${tempFolder}/src/image-viewer.scss`;
 
 process();
 
-function process() {
+async function process() {
   console.log('Running build...');
-  deleteFolderRecursiveSync(tempFolder);
-  copyRecursiveSync('src', tempFolder);
+  prepareTempFolder();
 
-  const component = getFileContent(componentPath);
-  const css = getCss(getFileContent(scssPath));
+  const component = await getFileContent(componentPath);
+  const css = getCss(await getFileContent(scssPath));
 
   console.log('Inlining styles...');
   const newComponent = component.replace('styles: []', `styles: ['${css}']`);
 
-  writeFile(componentPath, newComponent, () => {
-    console.log('About to run ngc async...');
+  const write = await writeFile(componentPath, newComponent);
 
-    runNgc('tsconfig.json');
-    runNgc('tsconfig.umd.json');
-  });
+  console.log('About to run ngc async...');
+
+  const es2015 = runNgc(`${tempFolder}/tsconfig.json`);
+  const umd = runNgc(`${tempFolder}/tsconfig.umd.json`);
+
+  const build = await Promise.all([es2015, umd]);
+
+  console.log('Moving /dist to root');
+  moveDist();
+}
+
+function moveDist() {
+  return fs.copy(`${tempFolder}/dist`, 'dist', { overwrite: true });
 }
 
 function runNgc(tsConfigPath) {
   console.log('Started for', tsConfigPath);
 
   const ngc = path.resolve('node_modules', '.bin', 'ngc');
-  exec(`${ngc} -p ${tsConfigPath}`, (err, stdout, stdeer) => {
-    if (err) {
-      console.log('Error !', err);
-      return;
-    }
+  return new Promise((resolve, reject) => {
+    exec(`${ngc} -p ${tsConfigPath}`, (err, stdout, stdeer) => {
+      if (err) {
+        console.log('Error !', err);
+        reject(err);
+      }
 
-    console.log('Done for', tsConfigPath);
+      console.log('Done for', tsConfigPath);
+      resolve(tsConfigPath);
+    });
   });
 }
 
@@ -53,49 +64,29 @@ function getCss(scss_content) {
     .replace(/"/g, '\\"');
 }
 
-function getFileContent(path) {
-  return fs.readFileSync(path, 'utf8');
+async function getFileContent(path) {
+  return fs.readFile(path, 'utf8');
 }
 
-function writeFile(path, data, callback) {
-  return fs.writeFile(path, data, err => {
-    if (err) {
-      console.log('Error while writing file !', err);
-    }
+function writeFile(path, data) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(path, data, err => {
+      if (err) {
+        console.log('Error while writing file !', err);
+        reject(err);
+      }
 
-    callback();
+      resolve(path);
+    });
   });
 }
 
-function copyRecursiveSync(src, dest) {
-  const exists = fs.existsSync(src);
-  const stats = exists && fs.statSync(src);
-  const isDirectory = exists && stats.isDirectory();
-  if (exists && isDirectory) {
-    fs.mkdirSync(dest);
-    fs.readdirSync(src).forEach(function(childItemName) {
-      copyRecursiveSync(
-        path.join(src, childItemName),
-        path.join(dest, childItemName)
-      );
-    });
-  } else {
-    fs.copySync(src, dest);
-  }
-}
+function prepareTempFolder() {
+  fs.removeSync(tempFolder);
 
-function deleteFolderRecursiveSync(path) {
-  if (fs.existsSync(path)) {
-    fs.readdirSync(path).forEach(function(file, index) {
-      var curPath = path + '/' + file;
-      if (fs.lstatSync(curPath).isDirectory()) {
-        // recurse
-        deleteFolderRecursive(curPath);
-      } else {
-        // delete file
-        fs.removeSync(curPath);
-      }
-    });
-    fs.rmdirSync(path);
-  }
+  fs.copySync('src', `${tempFolder}/src`);
+
+  fs.copySync('ionic-img-viewer.ts', `${tempFolder}/ionic-img-viewer.ts`);
+  fs.copySync('tsconfig.json', `${tempFolder}/tsconfig.json`);
+  fs.copySync('tsconfig.umd.json', `${tempFolder}/tsconfig.umd.json`);
 }

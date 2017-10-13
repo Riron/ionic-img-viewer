@@ -12,7 +12,17 @@ import {
     Animation
 } from 'ionic-angular';
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from 'ionic-angular/gestures/hammer';
-import { ElementRef, Renderer, Component, OnInit, OnDestroy, AfterViewInit, NgZone, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Renderer,
+    ViewChild,
+    ViewEncapsulation,
+} from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { ImageViewerSrcAnimation } from './image-viewer-src-animation';
@@ -36,7 +46,8 @@ import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 			</div>
 		</div>
 	`,
-	styles: []
+	styles: [],
+	encapsulation: ViewEncapsulation.None
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, AfterViewInit {
 	public imageUrl: SafeUrl;
