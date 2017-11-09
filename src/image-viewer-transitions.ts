@@ -6,14 +6,16 @@ export class ImageViewerEnter extends Transition {
 		const css = this.plt.Css;
 		const ele = this.enteringView.pageRef().nativeElement;
 
+		const imgElement = ele.querySelector('img');
+		const backdropElement = ele.querySelector('ion-backdrop');
+
 		const fromPosition = this.enteringView.data.position;
-		const toPosition = ele.querySelector('img').getBoundingClientRect();
+		const toPosition = imgElement.getBoundingClientRect();
 		const flipS = fromPosition.width / toPosition.width;
 		const flipY = fromPosition.top - toPosition.top;
 		const flipX = fromPosition.left - toPosition.left;
 
-		const imgElement = ele.querySelector('.image');
-		const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+		const backdrop = new Animation(this.plt, backdropElement);
 		const image = new Animation(this.plt, imgElement);
 
 		// Using `Animation.beforeStyles()` here does not seems to work
@@ -21,12 +23,12 @@ export class ImageViewerEnter extends Transition {
 
 		image.fromTo('translateY', `${flipY}px`, '0px')
 			.fromTo('translateX', `${flipX}px`, '0px')
-			.fromTo('scale', flipS, '1')
+			.fromTo('scale', flipS, 1)
 			.afterClearStyles([ css.transformOrigin ]);
 
-		backdrop.fromTo('opacity', '0.01', '1');
+		backdrop.fromTo('opacity', 0.01, 1);
 
-		this.easing('ease-in')
+		this.easing('ease-in-out')
 			.duration(150)
 			.add(backdrop)
 			.add(image);
@@ -51,34 +53,28 @@ export class ImageViewerLeave extends Transition {
 		const css = this.plt.Css;
 		const ele = this.leavingView.pageRef().nativeElement;
 
+		const imgElement = ele.querySelector('img');
+		const backdropElement = ele.querySelector('ion-backdrop');
+
 		const toPosition = this.leavingView.data.position;
-		const fromPosition = ele.querySelector('img').getBoundingClientRect();
-
-		const imageElement = ele.querySelector('.image');
-
-		let offsetY = 0;
-		const imageYOffset = imageElement.style[css.transform];
-		if (imageYOffset) {
-			const regexResult = imageYOffset.match(/translateY\((-?\d*\.?\d*)px\)/);
-			offsetY = regexResult ? parseFloat(regexResult[1]) : offsetY;
-		}
+		const fromPosition = imgElement.getBoundingClientRect();
 
 		const flipS = toPosition.width / fromPosition.width;
-		const flipY = toPosition.top - fromPosition.top + offsetY;
+		const flipY = toPosition.top - fromPosition.top;
 		const flipX = toPosition.left - fromPosition.left;
 
-		const backdropOpacity = ele.querySelector('ion-backdrop').style['opacity'];
+		const backdropOpacity =backdropElement.style['opacity'];
 
-		const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-		const image = new Animation(this.plt, imageElement);
+		const backdrop = new Animation(this.plt,backdropElement);
+		const image = new Animation(this.plt, imgElement);
 
-		image.fromTo('translateY', `${offsetY}px`, `${flipY}px`)
+		image.fromTo('translateY', `${0}px`, `${flipY}px`)
 			.fromTo('translateX', `0px`, `${flipX}px`)
-			.fromTo('scale', '1', flipS)
+			.fromTo('scale', 1, flipS)
 			.beforeStyles({ [css.transformOrigin]: '0 0' })
 			.afterClearStyles([css.transformOrigin]);
 
-		backdrop.fromTo('opacity', backdropOpacity, '0');
+		backdrop.fromTo('opacity', backdropOpacity, 0);
 
 		this.easing('ease-in-out')
 			.duration(150)
