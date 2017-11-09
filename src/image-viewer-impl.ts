@@ -1,3 +1,4 @@
+import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/zip';
 
 import { App, Config, NavOptions, ViewController } from 'ionic-angular';
@@ -46,7 +47,8 @@ export class ImageViewerImpl extends ViewController {
 
 			// We want the animation to finish before replacing the pic
 			// as the calculation has been done with the smaller image
-			Observable.zip(onLoadObservable, this.didEnter)
+			// AND, to avoid a flash if it loads "too quickly", wait at least 300ms after didEnter
+			Observable.zip(onLoadObservable, this.didEnter.delay(300))
 				.subscribe(() => this.instance.updateImageSrcWithTransition(fullResImage));
 
 		} else {
