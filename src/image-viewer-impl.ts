@@ -1,4 +1,4 @@
-import { delay, zip } from 'rxjs/operators';
+import { delay, zip } from 'rxjs/operator';
 
 import { App, Config, NavOptions, ViewController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
