@@ -21,22 +21,22 @@
   "author": "Orion Charlier",
   "license": "MIT",
   "devDependencies": {
-    "@angular/common": "4.4.4",
-    "@angular/compiler": "4.4.4",
-    "@angular/compiler-cli": "4.4.4",
-    "@angular/core": "4.4.4",
-    "@angular/forms": "4.4.4",
-    "@angular/http": "4.4.4",
-    "@angular/platform-browser": "4.4.4",
-    "@angular/platform-browser-dynamic": "4.4.4",
-    "@angular/platform-server": "4.4.4",
+    "@angular/common": "5.0.0",
+    "@angular/compiler": "5.0.0",
+    "@angular/compiler-cli": "5.0.0",
+    "@angular/core": "5.0.0",
+    "@angular/forms": "5.0.0",
+    "@angular/http": "5.0.0",
+    "@angular/platform-browser": "5.0.0",
+    "@angular/platform-browser-dynamic": "5.0.0",
+    "@angular/platform-server": "5.0.0",
     "fs-extra": "^4.0.2",
     "node-sass": "^4.5.3",
-    "rxjs": "5.4.3",
-    "typescript": "~2.3.4",
+    "rxjs": "5.5.2",
+    "typescript": "2.4.2",
     "zone.js": "0.8.18"
   },
   "peerDependencies": {
-    "ionic-angular": "3.8.0"
+    "ionic-angular": "~3.9.0"
   }
 }
