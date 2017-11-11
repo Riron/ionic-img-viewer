@@ -1,3 +1,19 @@
+# 2.9.0
+
+Support for Ionic 3.9.x
+
+# 2.8.0
+
+Support for Ionic 3.8.x
+
+And bugfixes and enhancement :
+- support enableBackdropDismiss
+- better display for big images, that will no longer be croped on the top
+- better animation for big images, or images not entirely in the viewport
+
+# 2.7.0
+Support for Ionic 3.7.x
+
 # 2.6.1
 
 Added and UMD build
