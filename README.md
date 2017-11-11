@@ -99,10 +99,11 @@ export class MyPage {
 
 As a second argument to the `create(imageElement, config)` method, you can pass an object with the following options.
 
-| Options         | Type     | Description  |
-| --------------- |:---------| :------------|
-| fullResImage    | string   | A full resolution image to display instead of the original image when open. Default to null |
-| onCloseCallback | Function | Function to be called when the ImageViewer quits. Default to null |
+| Options               | Type     | Description  |
+| ---------------       |:---------| :------------|
+| fullResImage          | string   | A full resolution image to display instead of the original image when open. Defaults to null |
+| onCloseCallback       | Function | Function to be called when the ImageViewer quits. Defaults to null |
+| enableBackdropDismiss | boolean  | Boolean to enable dismiss when clicking on the back drop. Defaults to false |
 
 # Contributing
 

@@ -38,7 +38,7 @@ import { ImageViewerEnter, ImageViewerLeave } from './image-viewer-transitions';
 			</ion-navbar>
 		</ion-header>
 
-		<ion-backdrop></ion-backdrop>
+		<ion-backdrop (click)="bdClick()"></ion-backdrop>
 
 		<div class="image-wrapper">
 			<div class="image" #imageContainer>
@@ -71,7 +71,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 		private renderer: Renderer,
 		private domCtrl: DomController,
 		private platform: Platform,
-		_navParams: NavParams,
+		private _navParams: NavParams,
 		_config: Config,
 		private _sanitizer: DomSanitizer
 	) {
@@ -112,5 +112,11 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 		this.pinchGesture && this.pinchGesture.destroy();
 
 		this.unregisterBackButton();
+	}
+
+	bdClick() {
+		if (this._navParams.get('enableBackdropDismiss')) {
+			this._nav.pop();
+		}
 	}
 }
