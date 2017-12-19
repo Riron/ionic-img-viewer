@@ -7,21 +7,26 @@ import {
   Config,
   Platform, Slides,
 } from 'ionic-angular';
-import {ElementRef, Renderer, Component, OnInit, OnDestroy, AfterViewInit, NgZone, ViewChild} from '@angular/core';
+import {ChangeDetectorRef,ChangeDetectionStrategy,ElementRef, Renderer, Component, OnInit, OnDestroy, AfterViewInit, NgZone, ViewChild} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 import {ImageViewerSrcAnimation} from './image-viewer-src-animation';
 import {ImageViewerTransitionGesture} from './image-viewer-transition-gesture';
 import {ImageViewerZoomGesture} from './image-viewer-zoom-gesture';
+import { IconOptions } from './image-viewer';
 
 @Component({
   selector: 'image-viewer',
   templateUrl: 'image-viewer.html',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, AfterViewInit {
   public imageUrl: SafeUrl[] = [];
   public imageCurIndex: number = 0;
   public originalSrc: string;
+  public title: string;
+  public iconsRight: IconOptions[];
+  public imageId:number;
   // public safeImage: SafeUrl[] = [];
 
   public dragGesture: ImageViewerTransitionGesture;
@@ -38,6 +43,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 
   constructor(public _gestureCtrl: GestureController,
               public elementRef: ElementRef,
+              private _cd: ChangeDetectorRef,
               private _nav: NavController,
               private _zone: NgZone,
               private renderer: Renderer,
@@ -50,9 +56,16 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
 
     const url = _navParams.get('image');
     this.imageCurIndex = _navParams.get('imageCurIndex') || 0;
+    this.title = _navParams.get('title') ||"";
+    this.iconsRight = _navParams.get('iconsRight') ||[];
+    this.imageId = _navParams.get('imageId') ||null;
     this.updateImageSrc(url);
-  }
 
+  }
+  onIconClick(icon:IconOptions){
+    this._nav.pop();
+    icon.cb(this.imageId);
+  }
   updateImageSrc(src) {
     if (Array.isArray(src)) {
       let srcLen = src.length;
@@ -74,6 +87,7 @@ export class ImageViewerComponent extends Ion implements OnInit, OnDestroy, Afte
       this.originalSrc = src;
       this.imageUrl.push(this._sanitizer.bypassSecurityTrustUrl(src));
     }
+    this._cd.markForCheck();
   }
 
   updateImageSrcWithTransition(src) {
