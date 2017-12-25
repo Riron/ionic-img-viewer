@@ -22,5 +22,12 @@ export interface ImageViewerOptions {
 	fullResImage?: string[]
 	position?: ClientRect;
 	imageCurIndex?: number;
-	onCloseCallback?: Function;
+  onCloseCallback?: Function;
+  title?:string,
+  iconsRight?:IconOptions[],
+  imageId?:number;
+}
+export interface IconOptions {
+  name:string;
+  cb:Function;
 }

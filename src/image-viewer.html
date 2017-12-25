@@ -1,17 +1,23 @@
-<ion-header  no-border>
-  <ion-navbar>
-  </ion-navbar>
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons right>
+            <button ion-button icon-only *ngFor='let icon of iconsRight' (click)='onIconClick(icon)'>
+              <ion-icon [name]="icon.name"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-backdrop></ion-backdrop>
 
 <div class="image-wrapper">
-  <div class="image" #imageContainer>
-    <ion-slides #sliderContainer initialSlide="{{imageCurIndex}}">
-      <ion-slide *ngFor="let img of imageUrl; let index = index">
-        <img [src]="img" tappable #image *ngIf="index === imageCurIndex"/>
-        <img [src]="img" tappable *ngIf="index !== imageCurIndex"/>
-      </ion-slide>
-    </ion-slides>
-  </div>
+    <div class="image" #imageContainer>
+        <ion-slides #sliderContainer initialSlide="{{imageCurIndex}}">
+            <ion-slide *ngFor="let img of imageUrl; let index = index">
+                <img [src]="img" tappable #image *ngIf="index === imageCurIndex" />
+                <img [src]="img" tappable *ngIf="index !== imageCurIndex" />
+            </ion-slide>
+        </ion-slides>
+    </div>
 </div>
