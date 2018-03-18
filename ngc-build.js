@@ -41,7 +41,7 @@ function runNgc(tsConfigPath) {
 
   const ngc = path.resolve('node_modules', '.bin', 'ngc');
   return new Promise((resolve, reject) => {
-    exec(`${ngc} -p ${tsConfigPath}`, (err, stdout, stdeer) => {
+    exec(`"${ngc}" -p "${tsConfigPath}"`, (err, stdout, stdeer) => {
       if (err) {
         console.log('Error !', err);
         reject(err);
