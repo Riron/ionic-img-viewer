@@ -19,6 +19,8 @@ image-viewer.ion-page {
 
         &.toolbar.toolbar-ios {
             padding-top: calc(20px + 4px);
+            padding-top: calc(constant(safe-area-inset-top) + 4px);
+            padding-top: calc(env(safe-area-inset-top) + 4px);
         }
 
         .bar-button-default {
